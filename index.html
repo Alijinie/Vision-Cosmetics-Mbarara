@@ -24,6 +24,21 @@
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   .fade-in { animation: fadeIn 0.3s ease-in-out; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .carousel-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: carousel-scroll var(--carousel-duration, 40s) linear infinite;
+}
+.carousel-item { flex: 0 0 auto; }
+.carousel-wrap:hover .carousel-track { animation-play-state: paused; }
+@keyframes carousel-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-50% - 6px)); } /* 6px = half the gap, keeps the loop seamless */
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track { animation: none; }
+}
 </style>
 </head>
 <body class="antialiased selection:bg-rose-500 selection:text-white">
@@ -704,6 +719,7 @@ function openDetail(id) {
     </div>
   `;
   lucide.createIcons();
+  initCarousel();
   toggleModal('detail-modal');
 }
 // ================= NETWORK STATUS MONITOR =================
