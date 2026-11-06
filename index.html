@@ -761,8 +761,9 @@ window.addEventListener('offline', () => showNetworkStatus(false));
 window.addEventListener('online', () => showNetworkStatus(true));
   if (!navigator.onLine) showNetworkStatus(false);
 // BOOTSTRAP APP
-    initCarousel();
+    
 renderProducts(PRODUCTS);
+    initCarousel();
 updateBadges();
 </script>
 </body>
