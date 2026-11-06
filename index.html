@@ -270,32 +270,7 @@
 </div>
 
 <script>
-  // ================= SLIDING CAROUSEL =================
-// Add, remove or reorder image URLs here. The loop adjusts automatically.
-const CAROUSEL_IMAGES = [
-  '44.jpg',
-  '55.jpg',
-  '66.jpg',
-  '77.jpg',
-  '44.jpg',
-  '55.jpg',
-  '66.jpg',
-  '77.jpg'
-];
-const CAROUSEL_SECONDS_PER_IMAGE = 5; // lower = faster
 
-function initCarousel() {
-  const track = document.getElementById('carousel-track');
-  if (!track || !CAROUSEL_IMAGES.length) return;
-  // Render the set twice so the loop is seamless (track slides by -50%)
-  const slides = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES].map((src, i) => `
-    <div class="carousel-item" ${i >= CAROUSEL_IMAGES.length ? 'aria-hidden="true"' : ''}>
-      <img src="${src}" alt="Vision Cosmetics product ${(i % CAROUSEL_IMAGES.length) + 1}" loading="lazy"
-           class="h-36 sm:h-44 md:h-52 w-auto aspect-[3/2] object-cover rounded-2xl bg-slate-100 shadow-sm">
-    </div>`).join('');
-  track.innerHTML = slides;
-  track.style.setProperty('--carousel-duration', (CAROUSEL_IMAGES.length * CAROUSEL_SECONDS_PER_IMAGE) + 's');
-}
 
 const WHATSAPP_NUM = "256774046547"; // Vision Cosmetics Mbarara
 
@@ -499,7 +474,33 @@ function addToCart(id, e, btnElement) {
   }
   saveState();
   renderCart();
+  // ================= SLIDING CAROUSEL =================
+// Add, remove or reorder image URLs here. The loop adjusts automatically.
+const CAROUSEL_IMAGES = [
+  '44.jpg',
+  '55.jpg',
+  '66.jpg',
+  '77.jpg',
+  '44.jpg',
+  '55.jpg',
+  '66.jpg',
+  '77.jpg'
+];
+const CAROUSEL_SECONDS_PER_IMAGE = 5; // lower = faster
 
+function initCarousel() {
+  const track = document.getElementById('carousel-track');
+  if (!track || !CAROUSEL_IMAGES.length) return;
+  // Render the set twice so the loop is seamless (track slides by -50%)
+  const slides = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES].map((src, i) => `
+    <div class="carousel-item" ${i >= CAROUSEL_IMAGES.length ? 'aria-hidden="true"' : ''}>
+      <img src="${src}" alt="Vision Cosmetics product ${(i % CAROUSEL_IMAGES.length) + 1}" loading="lazy"
+           class="h-36 sm:h-44 md:h-52 w-auto aspect-[3/2] object-cover rounded-2xl bg-slate-100 shadow-sm">
+    </div>`).join('');
+  track.innerHTML = slides;
+  track.style.setProperty('--carousel-duration', (CAROUSEL_IMAGES.length * CAROUSEL_SECONDS_PER_IMAGE) + 's');
+}
+  
   // ================= BUTTON FEEDBACK ANIMATION =================
   if (btnElement) {
     // Store original text and disable button to prevent spam-clicking
@@ -719,7 +720,7 @@ function openDetail(id) {
     </div>
   `;
   lucide.createIcons();
-  initCarousel();
+
   toggleModal('detail-modal');
 }
 // ================= NETWORK STATUS MONITOR =================
@@ -760,6 +761,7 @@ window.addEventListener('offline', () => showNetworkStatus(false));
 window.addEventListener('online', () => showNetworkStatus(true));
   if (!navigator.onLine) showNetworkStatus(false);
 // BOOTSTRAP APP
+    initCarousel();
 renderProducts(PRODUCTS);
 updateBadges();
 </script>
