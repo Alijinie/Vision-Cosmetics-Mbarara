@@ -47,7 +47,7 @@
 
   <!-- ================= SIDEBAR (DESKTOP) ================= -->
   <aside class="hidden md:flex sticky top-0 h-screen w-[280px] bg-white border-r border-slate-200 flex-col z-40 p-6 justify-between">
-    <div>
+    <div class="flex min-h-0 flex-1 flex-col">
       <div class="flex items-center gap-3 mb-8">
         <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center shrink-0 shadow-md shadow-rose-600/20 text-white font-black text-xl">
           V
@@ -58,24 +58,33 @@
       </div>
 
       <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 px-3">Categories</p>
-      <nav class="space-y-1.5">
+      <nav class="min-h-0 flex-1 space-y-1.5 overflow-y-auto pr-1 scrollbar-hide">
         <button onclick="filterCategory('All')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-semibold bg-rose-600 text-white shadow-md shadow-rose-600/20">
           <i data-lucide="layout-grid" class="w-4 h-4"></i> All
         </button>
-        <button onclick="filterCategory('Skincare')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
-          <i data-lucide="sparkles" class="w-4 h-4"></i> Skincare
+        <button onclick="filterCategory('Dr. Dess')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="sparkles" class="w-4 h-4"></i> Dr. Dess
         </button>
-        <button onclick="filterCategory('Makeup')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
-          <i data-lucide="palette" class="w-4 h-4"></i> Makeup
+        <button onclick="filterCategory('Sunscreens &amp; Sunblocks')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="sun" class="w-4 h-4"></i> Sunscreens &amp; Sunblocks
         </button>
-        <button onclick="filterCategory('Hair Care')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
-          <i data-lucide="scissors" class="w-4 h-4"></i> Hair Care
+        <button onclick="filterCategory('Yass Skin Active')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="zap" class="w-4 h-4"></i> Yass Skin Active
         </button>
-        <button onclick="filterCategory('Perfumes & Body')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
-          <i data-lucide="flower-2" class="w-4 h-4"></i> Perfumes & Body
+        <button onclick="filterCategory('Soaps')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="droplets" class="w-4 h-4"></i> Soaps
         </button>
-        <button onclick="filterCategory('Wholesale Packs')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
-          <i data-lucide="package" class="w-4 h-4"></i> Wholesale Packs
+        <button onclick="filterCategory('Serums &amp; Special Treatments')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="pipette" class="w-4 h-4"></i> Serums &amp; Special Treatments
+        </button>
+        <button onclick="filterCategory('CT+ Clear Therapy')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> CT+ Clear Therapy
+        </button>
+        <button onclick="filterCategory('Body Lotions &amp; Moisturizers')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="droplet" class="w-4 h-4"></i> Body Lotions &amp; Moisturizers
+        </button>
+        <button onclick="filterCategory('Forever Young')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100">
+          <i data-lucide="clock" class="w-4 h-4"></i> Forever Young
         </button>
       </nav>
     </div>
@@ -161,17 +170,20 @@
       <!-- Mobile Filter Pills -->
       <div class="flex gap-2 overflow-x-auto pb-4 scrollbar-hide mb-4 md:hidden">
         <button onclick="filterCategory('All')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-rose-600 text-white text-xs font-bold shadow">All</button>
-        <button onclick="filterCategory('Skincare')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Skincare</button>
-        <button onclick="filterCategory('Makeup')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Makeup</button>
-        <button onclick="filterCategory('Hair Care')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Hair Care</button>
-        <button onclick="filterCategory('Perfumes & Body')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Perfumes & Body</button>
-        <button onclick="filterCategory('Wholesale Packs')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Wholesale Packs</button>
+        <button onclick="filterCategory('Dr. Dess')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Dr. Dess</button>
+        <button onclick="filterCategory('Sunscreens &amp; Sunblocks')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Sunscreens &amp; Sunblocks</button>
+        <button onclick="filterCategory('Yass Skin Active')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Yass Skin Active</button>
+        <button onclick="filterCategory('Soaps')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Soaps</button>
+        <button onclick="filterCategory('Serums &amp; Special Treatments')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Serums &amp; Special Treatments</button>
+        <button onclick="filterCategory('CT+ Clear Therapy')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">CT+ Clear Therapy</button>
+        <button onclick="filterCategory('Body Lotions &amp; Moisturizers')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Body Lotions &amp; Moisturizers</button>
+        <button onclick="filterCategory('Forever Young')" class="cat-pill shrink-0 px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-xs font-semibold">Forever Young</button>
       </div>
 
       <!-- Search Bar -->
       <div class="relative mb-6">
         <i data-lucide="search" class="absolute left-4 top-3.5 w-5 h-5 text-slate-400"></i>
-        <input type="text" id="search-input" placeholder="Search lotion, lipstick, hair oil, perfume..." class="w-full bg-white border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 transition shadow-sm">
+        <input type="text" id="search-input" placeholder="Search cream, sunscreen, serum, soap..." class="w-full bg-white border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 transition shadow-sm">
       </div>
 
       <!-- Product Grid -->
@@ -293,149 +305,366 @@ const WHATSAPP_NUM = "256774046547"; // Vision Cosmetics Mbarara
 
 const unitPrice = (p) => (p.wsMin && p.wsPrice && p.qty >= p.wsMin) ? p.wsPrice : p.price;
 
-// REAL DATA: Images from Unsplash stock, prices in UGX - realistic for Mbarara market 2025-2026
 const PRODUCTS = [
-  { 
-    id: 1, 
-    name: 'Nivea Gentle Face Wash - 100ml', 
-    category: 'Skincare', 
-    price: 18000, 
-    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Nivea daily face wash with Vitamin E. Gently cleanses, removes impurities & makeup without drying skin. For all skin types.',
-    wsMin: 12, wsPrice: 14500 
+  {
+    id: 1,
+    name: 'Kojic Acid Brightening Moist Face Cream',
+    category: 'Dr. Dess',
+    categories: ['Dr. Dess'],
+    price: 38000,
+    image: 'IMG-20261107-WA0018.jpg',
+    desc: 'Brightening daily moisturizer with kojic acid to help even tone and fade dark spots while keeping skin soft.',
+    wsMin: 6, wsPrice: 33000
   },
-  { 
-    id: 2, 
-    name: 'Vaseline Cocoa Glow Lotion - 400ml', 
-    category: 'Skincare', 
-    price: 25000, 
-    image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Intensive Care Cocoa Radiant lotion with pure cocoa butter. Moisturizes to restore dry skin glow in 2 weeks. Best seller in Uganda.',
-    wsMin: 12, wsPrice: 21000 
+  {
+    id: 2,
+    name: 'Kojic Acid Brightening Freckles Toner / Soft Gel',
+    category: 'Dr. Dess',
+    categories: ['Dr. Dess'],
+    price: 32000,
+    image: 'IMG-20261107-WA0002.jpg',
+    desc: 'Gentle kojic acid toner and soft gel that targets freckles and uneven tone for a clearer, brighter complexion.',
+    wsMin: 12, wsPrice: 27000
   },
-  { 
-    id: 3, 
-    name: 'CeraVe Daily Moisturizing Lotion 236ml', 
-    category: 'Skincare', 
-    price: 45000, 
-    image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Lightweight formula with 3 essential ceramides & hyaluronic acid. Dermatologist developed for dry to normal skin. 24hr hydration.',
-    wsMin: 6, wsPrice: 39000 
+  {
+    id: 3,
+    name: 'CeraVe Hydrating Mineral Sunscreen SPF 30',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 85000,
+    image: 'IMG-20261107-WA0011.jpg',
+    desc: 'Mineral sunscreen with ceramides and hyaluronic acid for SPF 30 broad-spectrum protection and daily hydration.',
+    wsMin: 6, wsPrice: 75000
   },
-  { 
-    id: 4, 
-    name: 'Maybelline SuperStay Matte Lipstick', 
-    category: 'Makeup', 
-    price: 18000, 
-    image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Long-lasting 16hr matte lipstick. Highly pigmented, non-drying formula. Available in 15 shades - Red, Nude, Pink.',
-    wsMin: 12, wsPrice: 14500 
+  {
+    id: 4,
+    name: 'ESTELIN Sunscreen SPF 50',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 45000,
+    image: 'IMG-20261107-WA0012.jpg',
+    desc: 'Lightweight SPF 50 sunscreen that protects against sun damage while keeping skin hydrated and non-greasy.',
+    wsMin: 12, wsPrice: 39000
   },
-  { 
-    id: 5, 
-    name: 'Maybelline Fit Me Foundation 30ml', 
-    category: 'Makeup', 
-    price: 35000, 
-    image: 'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Matte + Poreless foundation for normal to oily skin. Matches natural skin tone, blurs pores. 40 shades available.',
-    wsMin: 6, wsPrice: 30000 
+  {
+    id: 5,
+    name: 'La Roche-Posay Anthelios UVMune 400 SPF 50+',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 125000,
+    image: 'IMG-20261107-WA0014.jpg',
+    desc: 'High-protection SPF 50+ facial sunscreen with broad-spectrum UVMune 400 coverage for daily wear.',
+    wsMin: 6, wsPrice: 110000
   },
-  { 
-    id: 6, 
-    name: "L'Oréal Voluminous Lash Mascara", 
-    category: 'Makeup', 
-    price: 22000, 
-    image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Volume maximizing mascara, 5x fuller lashes. Clump-free, water-resistant. Perfect for daily glam and events.',
-    wsMin: 12, wsPrice: 18500 
+  {
+    id: 6,
+    name: 'GoClean Moisturizing Sunscreen Lotion SPF 50',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 40000,
+    image: 'IMG-20261107-WA0008.jpg',
+    desc: 'Moisturizing SPF 50 sunscreen lotion that hydrates and protects during long days in the sun.',
+    wsMin: 12, wsPrice: 35000
   },
-  { 
-    id: 7, 
-    name: 'Jamaican Black Castor Oil - 118ml', 
-    category: 'Hair Care', 
-    price: 15000, 
-    image: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=600&h=600&fit=crop&crop=center', 
-    desc: '100% pure castor oil for hair growth, edges & scalp. Repairs damaged hair, thickens and strengthens. Popular for braids.',
-    wsMin: 12, wsPrice: 12000 
+  {
+    id: 7,
+    name: 'SPF 60 Sun Block Cream',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 35000,
+    image: 'IMG-20261107-WA0017.jpg',
+    desc: 'High SPF 60 sunblock cream for strong daily protection against sunburn and dark spots.',
+    wsMin: 12, wsPrice: 30000
   },
-  { 
-    id: 8, 
-    name: 'TRESemmé Shampoo & Conditioner Set 700ml', 
-    category: 'Hair Care', 
-    price: 28000, 
-    image: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Moisture Rich with Vitamin E. Professional salon-quality cleanse + hydration for dry, damaged hair. 700ml each bottle.',
-    wsMin: 6, wsPrice: 24000 
+  {
+    id: 8,
+    name: 'Lady Diana Sunblock Cream Vitamin E SPF 40',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 30000,
+    image: 'IMG-20261107-WA0011.jpg',
+    desc: 'Vitamin E sunblock cream with SPF 40 to protect, moisturize, and support an even skin tone.',
+    wsMin: 12, wsPrice: 26000
   },
-  { 
-    id: 9, 
-    name: 'Eco Style Olive Oil Styling Gel 473ml', 
-    category: 'Hair Care', 
-    price: 18000, 
-    image: 'https://images.unsplash.com/photo-1585751119414-ef2636f8aede?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Olive oil gel for healthy styling, edge control & braids. Maximum hold, no flaking, alcohol-free. 10/10 hold.',
-    wsMin: 12, wsPrice: 14500 
+  {
+    id: 9,
+    name: 'Estelin Sunscreen (gold packaging)',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 45000,
+    image: 'IMG-20261107-WA0012.jpg',
+    desc: 'Estelin sunscreen in gold packaging, offering daily SPF protection with a smooth, non-sticky finish.',
+    wsMin: 12, wsPrice: 39000
   },
-  { 
-    id: 10, 
-    name: 'Signature Perfume - 100ml EDP', 
-    category: 'Perfumes & Body', 
-    price: 55000, 
-    image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Long-lasting Eau de Parfum, inspired by luxury scents. 24hr+ projection. For him & her options available. Gift-ready box.',
-    wsMin: 6, wsPrice: 45000 
+  {
+    id: 10,
+    name: 'Estelin Sunscreen (blue packaging)',
+    category: 'Sunscreens & Sunblocks',
+    categories: ['Sunscreens & Sunblocks'],
+    price: 45000,
+    image: 'IMG-20261107-WA0014.jpg',
+    desc: 'Estelin sunscreen in blue packaging, formulated for lightweight daily sun protection.',
+    wsMin: 12, wsPrice: 39000
   },
-  { 
-    id: 11, 
-    name: 'Nivea Fresh Body Spray 150ml', 
-    category: 'Perfumes & Body', 
-    price: 16000, 
-    image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&h=600&fit=crop&crop=center', 
-    desc: '48hr fresh protection, 0% alcohol, skin tolerance dermatologically proven. Floral & fresh scents available.',
-    wsMin: 12, wsPrice: 13000 
+  {
+    id: 11,
+    name: 'Glutathione & Vitamin C Whitening Face Cream',
+    category: 'Yass Skin Active',
+    categories: ['Yass Skin Active'],
+    price: 42000,
+    image: 'IMG-20261107-WA0008.jpg',
+    desc: 'Glutathione and vitamin C face cream for brightening, hydration, and a more radiant complexion.',
+    wsMin: 6, wsPrice: 36000
   },
-  { 
-    id: 12, 
-    name: 'Dove Beauty Bar Soap - 135g', 
-    category: 'Perfumes & Body', 
-    price: 5000, 
-    image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=600&h=600&fit=crop&crop=center', 
-    desc: '1/4 moisturizing cream beauty bar. Gently cleanses, leaves skin soft & smooth. Not a soap, it’s a beauty bar.',
-    wsMin: 24, wsPrice: 3800 
+  {
+    id: 12,
+    name: 'Vitamin C Cleanser 15%',
+    category: 'Yass Skin Active',
+    categories: ['Yass Skin Active'],
+    price: 32000,
+    image: 'IMG-20261107-WA0017.jpg',
+    desc: 'Vitamin C cleanser that removes dirt and makeup while helping brighten dull skin.',
+    wsMin: 12, wsPrice: 27000
   },
-  { 
-    id: 13, 
-    name: 'Vaseline Lotion Carton (12 x 400ml)', 
-    category: 'Wholesale Packs', 
-    price: 240000, 
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Wholesale carton deal - 12 bottles Vaseline Cocoa Glow 400ml. Save UGX 60,000 vs retail. Perfect for shops & resellers.',
+  {
+    id: 13,
+    name: 'Whitening Booster Vitamin C Toner',
+    category: 'Yass Skin Active',
+    categories: ['Yass Skin Active'],
+    price: 34000,
+    image: 'IMG-20261107-WA0020.jpg',
+    desc: 'Whitening booster toner with vitamin C to refresh, brighten, and prep skin for serum.',
+    wsMin: 12, wsPrice: 29000
   },
-  { 
-    id: 14, 
-    name: 'Dove Soap Box (24 x 135g)', 
-    category: 'Wholesale Packs', 
-    price: 96000, 
-    image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Wholesale box - 24 bars Dove Beauty Soap. Retail at 5k each = 120k. Your profit UGX 24,000 per box. Fast moving in Mbarara.',
+  {
+    id: 14,
+    name: 'Vitamin C Glow Essence 15%',
+    category: 'Yass Skin Active',
+    categories: ['Yass Skin Active'],
+    price: 36000,
+    image: 'IMG-20261107-WA0021.jpg',
+    desc: 'Vitamin C glow essence that targets dullness and supports a brighter, smoother look.',
+    wsMin: 12, wsPrice: 31000
   },
-  { 
-    id: 15, 
-    name: 'Complete Beauty Startup Bundle (30 pcs Mixed)', 
-    category: 'Wholesale Packs', 
-    price: 320000, 
-    image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop&crop=center', 
-    desc: 'Starter pack for new businesses: 10 lotions, 10 soaps, 5 sprays, 5 hair oils. Curated best sellers. Start reselling today!',
+  {
+    id: 15,
+    name: 'Final Glow Half-Cast Lemon Ultra-Whitening Soap',
+    category: 'Soaps',
+    categories: ['Soaps'],
+    price: 8000,
+    image: 'IMG-20261107-WA0007.jpg',
+    desc: 'Half-cast lemon soap for deep cleansing and ultra-whitening care, suitable for daily use.',
+    wsMin: 24, wsPrice: 6500
+  },
+  {
+    id: 16,
+    name: 'Pure Glow Exfoliating Purifying Soap',
+    category: 'Soaps',
+    categories: ['Soaps'],
+    price: 7000,
+    image: 'IMG-20261107-WA0009.jpg',
+    desc: 'Exfoliating purifying soap that helps clear buildup and leave skin feeling fresh and smooth.',
+    wsMin: 24, wsPrice: 5500
+  },
+  {
+    id: 17,
+    name: 'CT+ Clear Therapy Clarifying Purity Soap',
+    category: 'CT+ Clear Therapy',
+    categories: ['Soaps', 'CT+ Clear Therapy'],
+    price: 10000,
+    image: 'IMG-20261107-WA0007.jpg',
+    desc: 'CT+ clarifying purity soap for gentle cleansing and clearer-looking skin.',
+    wsMin: 24, wsPrice: 8000
+  },
+  {
+    id: 18,
+    name: 'U BEAUTY Turmeric Repair Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 25000,
+    image: 'IMG-20261107-WA0024.jpg',
+    desc: 'Turmeric repair serum formulated to calm, brighten, and improve the look of uneven skin.',
+    wsMin: 12, wsPrice: 21000
+  },
+  {
+    id: 19,
+    name: 'Collagen Anti-Aging Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 30000,
+    image: 'IMG-20261107-WA0021.jpg',
+    desc: 'Anti-aging collagen serum that supports firmness, elasticity, and smoother-looking skin.',
+    wsMin: 12, wsPrice: 25000
+  },
+  {
+    id: 20,
+    name: 'Dr Meiner Vitamin A Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 35000,
+    image: 'IMG-20261107-WA0020.jpg',
+    desc: 'Vitamin A serum from Dr Meiner for smoother texture and a more youthful appearance.',
+    wsMin: 12, wsPrice: 30000
+  },
+  {
+    id: 21,
+    name: 'ESTELIN Rice Collagen Firming Face Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 40000,
+    image: 'IMG-20261107-WA0024.jpg',
+    desc: 'Rice collagen firming face serum that hydrates and helps improve skin elasticity.',
+    wsMin: 12, wsPrice: 34000
+  },
+  {
+    id: 22,
+    name: 'MOOYAM Aloe Vera Eye Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 22000,
+    image: 'IMG-20261107-WA0016.jpg',
+    desc: 'Aloe vera eye serum that soothes and hydrates the delicate under-eye area.',
+    wsMin: 12, wsPrice: 18000
+  },
+  {
+    id: 23,
+    name: 'Snail Collagen Face Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 28000,
+    image: 'IMG-20261107-WA0024.jpg',
+    desc: 'Snail collagen face serum for deep hydration, repair, and a plump, healthy glow.',
+    wsMin: 12, wsPrice: 24000
+  },
+  {
+    id: 24,
+    name: 'U BEAUTY Vitamin C Black Spot Remover Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 25000,
+    image: 'IMG-20261107-WA0008.jpg',
+    desc: 'Vitamin C spot-remover serum targeting dark spots and uneven tone.',
+    wsMin: 12, wsPrice: 21000
+  },
+  {
+    id: 25,
+    name: 'U BEAUTY Salicylic Acid Acne Removal Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 25000,
+    image: 'IMG-20261107-WA0010.jpg',
+    desc: 'Salicylic acid serum that helps clear acne, control excess oil, and refine pores.',
+    wsMin: 12, wsPrice: 21000
+  },
+  {
+    id: 26,
+    name: 'Naturegen 2% Salicylic Acid Face Wash',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 30000,
+    image: 'IMG-20261107-WA0023.jpg',
+    desc: '2% salicylic acid face wash for deep pore cleansing and acne-prone skin.',
+    wsMin: 12, wsPrice: 25000
+  },
+  {
+    id: 27,
+    name: 'Naturegen Face Wash (amber bottle)',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 30000,
+    image: 'IMG-20261107-WA0019.jpg',
+    desc: 'Naturegen daily face wash in an amber bottle for gentle, deep cleansing.',
+    wsMin: 12, wsPrice: 25000
+  },
+  {
+    id: 28,
+    name: 'Extra Lightening Lotion – Flawless Complexion',
+    category: 'CT+ Clear Therapy',
+    categories: ['CT+ Clear Therapy'],
+    price: 45000,
+    image: 'IMG-20261107-WA0019.jpg',
+    desc: 'Extra-lightening body lotion for a flawless, even-looking complexion and all-day moisture.',
+    wsMin: 12, wsPrice: 39000
+  },
+  {
+    id: 29,
+    name: 'Intensive Clarifying Serum',
+    category: 'CT+ Clear Therapy',
+    categories: ['CT+ Clear Therapy'],
+    price: 50000,
+    image: 'IMG-20261107-WA0024.jpg',
+    desc: 'Intensive clarifying serum that targets dark spots and uneven tone for clearer skin.',
+    wsMin: 12, wsPrice: 43000
+  },
+  {
+    id: 30,
+    name: 'Vaseline Dry Skin Repair Body Lotion',
+    category: 'Body Lotions & Moisturizers',
+    categories: ['Body Lotions & Moisturizers'],
+    price: 25000,
+    image: 'IMG-20261107-WA0019.jpg',
+    desc: 'Vaseline body lotion for dry skin repair, restoring moisture and softness.',
+    wsMin: 12, wsPrice: 21000
+  },
+  {
+    id: 31,
+    name: 'Cosmo Classic Glycerin Lotion',
+    category: 'Body Lotions & Moisturizers',
+    categories: ['Body Lotions & Moisturizers'],
+    price: 18000,
+    image: 'IMG-20261107-WA0022.jpg',
+    desc: 'Classic glycerin body lotion for long-lasting hydration and smooth skin.',
+    wsMin: 12, wsPrice: 15000
+  },
+  {
+    id: 32,
+    name: 'H+ Paris Crystalline Lightening Lotion',
+    category: 'Body Lotions & Moisturizers',
+    categories: ['Body Lotions & Moisturizers'],
+    price: 40000,
+    image: 'IMG-20261107-WA0016.jpg',
+    desc: 'H+ Paris lightening body lotion for a brighter, crystalline-looking complexion.',
+    wsMin: 12, wsPrice: 34000
+  },
+  {
+    id: 33,
+    name: 'Dream Skin Lightening Lotion',
+    category: 'Body Lotions & Moisturizers',
+    categories: ['Body Lotions & Moisturizers'],
+    price: 35000,
+    image: 'IMG-20261107-WA0002.jpg',
+    desc: 'Dream Skin lightening lotion for smooth, glowing, even-toned skin.',
+    wsMin: 12, wsPrice: 30000
+  },
+  {
+    id: 34,
+    name: 'Clarifying Lightening Shower Gel',
+    category: 'Forever Young',
+    categories: ['Forever Young'],
+    price: 30000,
+    image: 'IMG-20261107-WA0015.jpg',
+    desc: 'Clarifying lightening shower gel that cleanses and refreshes skin.',
+    wsMin: 12, wsPrice: 25000
+  },
+  {
+    id: 35,
+    name: 'Anti-Age & Clarifying Lightening Cream',
+    category: 'Forever Young',
+    categories: ['Forever Young'],
+    price: 45000,
+    image: 'IMG-20261107-WA0018.jpg',
+    desc: 'Anti-age and clarifying lightening cream for firmer, brighter-looking skin.',
+    wsMin: 6, wsPrice: 39000
   },
 ];
 
 // STATE MANAGEMENT
-let cart = JSON.parse(localStorage.getItem('vc_cart')) || [];
-let wishlist = JSON.parse(localStorage.getItem('vc_wishlist')) || [];
+let cart = JSON.parse(localStorage.getItem('vc_cart_v2')) || [];
+let wishlist = JSON.parse(localStorage.getItem('vc_wishlist_v2')) || [];
 
 function saveState() {
-  localStorage.setItem('vc_cart', JSON.stringify(cart));
-  localStorage.setItem('vc_wishlist', JSON.stringify(wishlist));
+  localStorage.setItem('vc_cart_v2', JSON.stringify(cart));
+  localStorage.setItem('vc_wishlist_v2', JSON.stringify(wishlist));
   updateBadges();
 }
 
@@ -675,13 +904,13 @@ function filterCategory(cat) {
       : "nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium text-slate-600 hover:bg-slate-100";
   });
 
-  const filtered = cat === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
+  const filtered = cat === 'All' ? PRODUCTS : PRODUCTS.filter(p => (p.categories || [p.category]).includes(cat));
   renderProducts(filtered);
 }
 
 document.getElementById('search-input').addEventListener('input', (e) => {
   const val = e.target.value.toLowerCase();
-  const filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(val) || p.category.toLowerCase().includes(val));
+  const filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(val) || (p.categories || [p.category]).some(c => c.toLowerCase().includes(val)));
   renderProducts(filtered);
 });
 
