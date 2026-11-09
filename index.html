@@ -43,7 +43,7 @@
 </head>
 <body class="antialiased selection:bg-rose-500 selection:text-white">
 
-<div class="flex flex-col md:flex-row max-w-7xl mx-auto min-h-screen bg-slate-50 shadow-xl overflow-x-hidden">
+<div class="flex flex-col md:flex-row max-w-[1600px] mx-auto min-h-screen bg-slate-50 shadow-xl overflow-x-hidden">
 
   <!-- ================= SIDEBAR (DESKTOP) ================= -->
   <aside class="hidden md:flex sticky top-0 h-screen w-[280px] bg-white border-r border-slate-200 flex-col z-40 p-6 justify-between">
@@ -103,7 +103,7 @@
   </aside>
 
   <!-- ================= MAIN CONTENT AREA ================= -->
-  <div class="flex-1 min-h-screen flex flex-col pb-24 md:pb-8">
+  <div class="flex-1 min-w-0 min-h-screen flex flex-col pb-24 md:pb-8">
     
     <!-- Mobile Header -->
     <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 p-4 flex justify-between items-center md:hidden">
@@ -123,11 +123,11 @@
       </div>
     </header>
 
-    <main class="p-4 md:p-8 max-w-6xl mx-auto w-full flex-1">
+    <main class="p-4 md:p-8 w-full min-w-0 flex-1">
       
      <!-- Hero Banner -->
 <div class="rounded-3xl bg-gradient-to-r from-rose-600 via-fuchsia-700 to-slate-900 p-6 md:p-10 mb-5 relative overflow-hidden shadow-lg text-white">
-  <div class="relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
+  <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10">
 
     <!-- Left: text -->
     <div class="flex-1 max-w-lg">
@@ -147,7 +147,7 @@
     <!-- Right: image -->
     <div class="w-full md:w-5/12 flex justify-center md:justify-end">
       <img src="hero1.jpg" alt="Vision Cosmetics products"
-           class="w-48 md:w-full max-w-sm h-auto object-contain drop-shadow-2xl">
+           class="w-48 md:w-full max-w-sm xl:max-w-md h-auto object-contain drop-shadow-2xl">
     </div>
 
   </div>
@@ -187,13 +187,13 @@
       </div>
 
       <!-- Product Grid -->
-      <div id="product-feed" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-5"></div>
+      <div id="product-feed" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 md:gap-5"></div>
     </main>
 
     <!-- FOOTER - moved OUTSIDE <main> and OUTSIDE the product area -->
     <!-- Full-width, no card styling, so it never looks like a product card on mobile -->
     <footer class="w-full bg-slate-900 text-slate-400 mt-10 rounded-none">
-      <div class="max-w-6xl mx-auto px-4 md:px-8 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs leading-relaxed">
+      <div class="w-full px-4 md:px-8 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs leading-relaxed">
         <div class="bg-transparent p-0 border-0 shadow-none rounded-none">
           <div class="font-extrabold text-white mb-1 text-sm">Vision Cosmetics Mbarara</div>
           <p>Retail &amp; wholesale cosmetics.</p>
