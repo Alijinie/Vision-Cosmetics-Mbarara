@@ -66,6 +66,17 @@
   .product-card:hover { transform: translateY(-3px); box-shadow: 0 20px 42px -30px rgba(88,28,45,.55); border-color: #fecdd3; }
   .product-card .product-image img { transition: transform .55s cubic-bezier(.16,1,.3,1); }
   .product-card:hover .product-image img { transform: scale(1.045); }
+  .carousel-wrap { position: relative; overflow: hidden; }
+  .carousel-track { display: flex; width: max-content; animation: carouselScroll var(--carousel-duration, 48s) linear infinite; will-change: transform; }
+  @media (hover: hover) and (pointer: fine) {
+    .carousel-wrap:hover .carousel-track { animation-play-state: paused; }
+  }
+  .carousel-wrap:focus-within .carousel-track,
+  .carousel-wrap.is-paused .carousel-track { animation-play-state: paused; }
+  .carousel-item { flex: 0 0 auto; padding-right: .75rem; }
+  @keyframes carouselScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .toast-progress { transform-origin: left; animation: toastProgress 3.2s linear forwards; }
+  @keyframes toastProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
   .app-modal [role="dialog"] { animation: modalIn .22s cubic-bezier(.16,1,.3,1); }
   @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
   .safe-bottom { padding-bottom: max(.6rem, env(safe-area-inset-bottom)); }
@@ -73,8 +84,12 @@
   #mob-wish-count:not(.hidden), #mob-cart-count:not(.hidden) { display: grid; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .fade-in, .toast-in, .app-modal [role="dialog"] { animation: none; }
+    .fade-in, .toast-in, .app-modal [role="dialog"], .toast-progress { animation: none; }
     .product-card, .category-card, .product-card .product-image img { transition: none; }
+    .carousel-track { animation: none; }
+    .carousel-wrap { overflow-x: auto; scroll-snap-type: x mandatory; }
+    .carousel-item { scroll-snap-align: start; }
+    .carousel-item[aria-hidden="true"] { display: none; }
   }
 </style>
 </head>
@@ -141,13 +156,13 @@
           <span class="min-w-0 font-display text-sm font-extrabold leading-tight tracking-tight text-stone-900">Vision Cosmetics<span class="mt-0.5 block truncate text-[10px] font-medium text-stone-500">Garage Street, Mbarara</span></span>
         </a>
         <div class="flex shrink-0 items-center gap-2">
-          <button onclick="toggleModal('wishlist-modal')" aria-label="Open wishlist" class="relative grid h-9 w-9 place-items-center rounded-full bg-rose-50 text-rose-600 transition hover:bg-rose-100">
+          <button onclick="toggleModal('wishlist-modal')" aria-label="Open wishlist" class="relative grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-md shadow-pink-500/30 transition hover:scale-105 hover:shadow-lg hover:shadow-pink-500/40 active:scale-95">
             <i data-lucide="heart" class="h-4.5 w-4.5"></i>
-            <span id="mob-wish-count" class="absolute -right-1 -top-1 hidden h-4 w-4 place-items-center rounded-full bg-rose-600 text-[9px] font-bold text-white">0</span>
+            <span id="mob-wish-count" class="absolute -right-1 -top-1 hidden h-4 min-w-[1rem] place-items-center rounded-full bg-white px-1 text-[9px] font-extrabold text-rose-600 shadow">0</span>
           </button>
-          <button onclick="toggleModal('cart-modal')" aria-label="Open cart" class="relative grid h-9 w-9 place-items-center rounded-full bg-stone-900 text-white shadow-md shadow-stone-900/20 transition hover:bg-stone-800">
+          <button onclick="toggleModal('cart-modal')" aria-label="Open cart" class="relative grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-md shadow-violet-500/30 transition hover:scale-105 hover:shadow-lg hover:shadow-violet-500/40 active:scale-95">
             <i data-lucide="shopping-bag" class="h-4.5 w-4.5"></i>
-            <span id="mob-cart-count" class="absolute -right-1 -top-1 hidden h-4 w-4 place-items-center rounded-full bg-rose-500 text-[9px] font-bold text-white">0</span>
+            <span id="mob-cart-count" class="absolute -right-1 -top-1 hidden h-4 min-w-[1rem] place-items-center rounded-full bg-white px-1 text-[9px] font-extrabold text-indigo-600 shadow">0</span>
           </button>
         </div>
       </div>
@@ -244,7 +259,24 @@
     </div>
 
   </div>
-</section>   
+</section>
+
+      <section class="mb-6 lg:mb-8" aria-labelledby="featured-carousel-title">
+        <div class="mb-3 flex items-end justify-between gap-4">
+          <div class="min-w-0">
+            <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-rose-600">In the spotlight</p>
+            <h2 id="featured-carousel-title" class="mt-1 font-display text-2xl font-extrabold tracking-tight text-stone-900">Featured this week</h2>
+          </div>
+          <button onclick="scrollToProducts()" class="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1.5 text-[11px] font-bold text-stone-500 transition hover:bg-white hover:text-rose-600">
+            Shop all <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+          </button>
+        </div>
+        <div id="featured-carousel" class="carousel-wrap" role="region" aria-label="Featured products and offers">
+          <div id="carousel-track" class="carousel-track"></div>
+          <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-cream to-transparent sm:w-10" aria-hidden="true"></div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-cream to-transparent sm:w-10" aria-hidden="true"></div>
+        </div>
+      </section>
 
       <section class="mb-6 hidden md:block">
         <div class="mb-3 flex items-end justify-between gap-4">
@@ -374,20 +406,35 @@
     </footer>
   </div>
 
-  <nav class="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-rose-100/80 bg-white/95 px-4 pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile navigation">
-    <div class="mx-auto flex max-w-md items-center justify-between">
-      <button onclick="scrollToTop()" class="flex min-w-[56px] flex-col items-center gap-1 rounded-lg px-2 py-1 text-rose-600">
-        <i data-lucide="store" class="h-5 w-5"></i><span class="text-[9px] font-bold">Shop</span>
-      </button>
-      <button onclick="toggleModal('wishlist-modal')" class="flex min-w-[56px] flex-col items-center gap-1 rounded-lg px-2 py-1 text-stone-400 transition hover:text-rose-600">
-        <i data-lucide="heart" class="h-5 w-5"></i><span class="text-[9px] font-semibold">Wishlist</span>
-      </button>
-      <button onclick="toggleModal('cart-modal')" class="flex min-w-[56px] flex-col items-center gap-1 rounded-lg px-2 py-1 text-stone-400 transition hover:text-rose-600">
-        <i data-lucide="shopping-bag" class="h-5 w-5"></i><span class="text-[9px] font-semibold">Cart</span>
-      </button>
-      <a href="https://wa.me/256774046547" target="_blank" rel="noopener" class="flex min-w-[56px] flex-col items-center gap-1 rounded-lg px-2 py-1 text-stone-400 transition hover:text-rose-600">
-        <i data-lucide="message-circle" class="h-5 w-5"></i><span class="text-[9px] font-semibold">WhatsApp</span>
-      </a>
+  <nav class="fixed inset-x-0 bottom-0 z-40 md:hidden" aria-label="Mobile navigation">
+    <div class="safe-bottom relative border-t border-white/70 bg-gradient-to-r from-rose-50/95 via-fuchsia-50/90 to-amber-50/95 px-4 pt-2 shadow-[0_-14px_32px_-18px_rgba(190,18,60,.4)] backdrop-blur-xl">
+      <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-rose-500 via-fuchsia-500 to-amber-400" aria-hidden="true"></div>
+      <div class="mx-auto flex max-w-md items-center justify-between">
+        <button onclick="scrollToTop()" aria-label="Back to top" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+          <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-rose-500 to-fuchsia-600 text-white shadow-md shadow-rose-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-rose-500/40 group-active:scale-95">
+            <i data-lucide="store" class="h-4 w-4"></i>
+          </span>
+          <span class="text-[9px] font-extrabold text-rose-600">Shop</span>
+        </button>
+        <button onclick="toggleModal('wishlist-modal')" aria-label="Open wishlist" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+          <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-md shadow-pink-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-pink-500/40 group-active:scale-95">
+            <i data-lucide="heart" class="h-4 w-4"></i>
+          </span>
+          <span class="text-[9px] font-extrabold text-pink-600">Wishlist</span>
+        </button>
+        <button onclick="toggleModal('cart-modal')" aria-label="Open cart" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+          <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-md shadow-violet-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-violet-500/40 group-active:scale-95">
+            <i data-lucide="shopping-bag" class="h-4 w-4"></i>
+          </span>
+          <span class="text-[9px] font-extrabold text-violet-600">Cart</span>
+        </button>
+        <a href="https://wa.me/256774046547" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+          <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-md shadow-emerald-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-emerald-500/40 group-active:scale-95">
+            <i data-lucide="message-circle" class="h-4 w-4"></i>
+          </span>
+          <span class="text-[9px] font-extrabold text-emerald-600">WhatsApp</span>
+        </a>
+      </div>
     </div>
   </nav>
 </div>
@@ -470,7 +517,7 @@
 
 <div id="toast-container" class="pointer-events-none fixed bottom-24 right-4 z-[70] flex w-[calc(100%-2rem)] max-w-sm flex-col gap-2 sm:bottom-6" aria-live="polite"></div>
 
-<div id="network-toast" role="status" aria-live="polite" class="fixed left-1/2 top-4 z-[80] hidden -translate-x-1/2 items-center gap-2.5 rounded-full border px-4 py-2.5 text-xs font-bold shadow-xl transition-all duration-300">
+<div id="network-toast" role="status" aria-live="polite" class="fixed left-1/2 top-4 z-[80] hidden -translate-x-1/2 items-center gap-2.5 rounded-full border border-white/25 px-4 py-2.5 text-xs font-bold text-white shadow-xl ring-1 ring-white/20 transition-all duration-300">
   <i id="network-icon" data-lucide="wifi-off" class="h-4 w-4 shrink-0"></i>
   <span id="network-text">You are currently offline.</span>
 </div>
@@ -943,6 +990,129 @@ function updateHeroStats() {
   if (categoryTotal) categoryTotal.textContent = CATEGORY_META.length;
 }
 
+const CAROUSEL_ENTRIES = [
+  { type: 'product', id: 3 },
+  { type: 'promo', image: '44.jpg', kicker: 'Retail & wholesale', title: 'Stock your shop for less', cta: 'Ask about wholesale', action: 'wholesale', badge: 'from-rose-500 to-fuchsia-600' },
+  { type: 'product', id: 12 },
+  { type: 'product', id: 19 },
+  { type: 'promo', image: '55.jpg', kicker: 'Daily glow', title: 'Original skincare picks', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600' },
+  { type: 'product', id: 33 },
+  { type: 'product', id: 4 },
+  { type: 'promo', image: '66.jpg', kicker: 'Sun care', title: 'Protect your glow every day', cta: 'Shop sunscreens', action: 'sunscreens', badge: 'from-amber-500 to-orange-600' },
+  { type: 'product', id: 31 },
+  { type: 'product', id: 23 },
+  { type: 'promo', image: '77.jpg', kicker: 'Body care', title: 'Soft, smooth, glowing skin', cta: 'Shop body care', action: 'body', badge: 'from-emerald-500 to-teal-600' },
+  { type: 'product', id: 5 },
+];
+
+function carouselPromoAction(action) {
+  if (action === 'wholesale') {
+    const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent('Hello Vision Cosmetics, I would like to ask about wholesale prices.')}`;
+    return `window.open('${url}', '_blank', 'noopener')`;
+  }
+  if (action === 'sunscreens') return "filterCategory('Sunscreens & Sunblocks')";
+  if (action === 'body') return "filterCategory('Body Lotions & Moisturizers')";
+  return 'clearAllFilters(true)';
+}
+
+function carouselProductMarkup(product, isDuplicate) {
+  const isWished = wishlist.includes(product.id);
+  const tabAttr = isDuplicate ? ' tabindex="-1"' : ' tabindex="0"';
+  return `
+    <article class="group relative flex h-[288px] w-[64vw] min-w-[220px] max-w-[300px] cursor-pointer flex-col rounded-2xl border border-rose-100 bg-white p-2.5 shadow-card transition hover:-translate-y-0.5 hover:border-rose-200 sm:h-[330px]" role="button"${tabAttr} aria-label="View ${escapeHtml(product.name)}" onclick="openDetail(${product.id})" onkeydown="if(event.target===event.currentTarget&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openDetail(${product.id})}">
+      <div class="relative h-36 shrink-0 overflow-hidden rounded-xl bg-rose-50 sm:h-44">
+        <img src="${product.image}" alt="${escapeHtml(product.name)}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        ${product.wsMin ? '<span class="absolute left-2 top-2 rounded-full bg-gradient-to-r from-stone-900/90 to-stone-900/60 px-2 py-1 text-[8px] font-extrabold uppercase tracking-wide text-white backdrop-blur">Wholesale</span>' : ''}
+        <button type="button" data-carousel-wish="${product.id}" onclick="toggleWishlist(${product.id}, event)" aria-label="${isWished ? 'Remove from' : 'Add to'} wishlist" aria-pressed="${isWished}"${tabAttr} class="absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full border border-white/80 bg-white/85 text-stone-400 shadow-sm backdrop-blur transition hover:scale-105 hover:text-rose-500 active:scale-95 ${isWished ? 'text-rose-600' : ''}">
+          <i data-lucide="heart" class="h-3.5 w-3.5 ${isWished ? 'fill-current' : ''}"></i>
+        </button>
+      </div>
+      <div class="mt-2.5 flex min-w-0 flex-1 flex-col">
+        <p class="truncate text-[9px] font-extrabold uppercase tracking-[0.14em] text-rose-600">${escapeHtml(product.category)}</p>
+        <h3 class="mt-1 line-clamp-2 text-[13px] font-bold leading-5 text-stone-900">${escapeHtml(product.name)}</h3>
+        <div class="mt-auto flex items-end justify-between gap-2 pt-2">
+          <div class="min-w-0">
+            <p class="text-[8px] font-extrabold uppercase tracking-[0.12em] text-stone-400">From</p>
+            <p class="truncate text-xs font-extrabold text-stone-900">${currency(product.price)}</p>
+          </div>
+          <button type="button" onclick="addToCart(${product.id}, event, this)" aria-label="Add ${escapeHtml(product.name)} to cart"${tabAttr} class="flex shrink-0 items-center gap-1 rounded-lg bg-gradient-to-r from-rose-600 to-fuchsia-600 px-2.5 py-2 text-[10px] font-bold text-white shadow-sm shadow-rose-600/20 transition hover:from-rose-700 hover:to-fuchsia-700 active:scale-95">
+            <i data-lucide="plus" class="h-3 w-3"></i> Add
+          </button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function carouselPromoMarkup(promo, isDuplicate) {
+  const tabAttr = isDuplicate ? ' tabindex="-1"' : '';
+  return `
+    <button type="button"${tabAttr} onclick="${carouselPromoAction(promo.action)}" aria-label="${escapeHtml(promo.title)}" class="group relative flex h-[288px] w-[64vw] min-w-[220px] max-w-[300px] flex-col justify-end overflow-hidden rounded-2xl border border-rose-100 bg-stone-900 p-4 text-left shadow-card transition hover:-translate-y-0.5 sm:h-[330px]">
+      <img src="${promo.image}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
+      <span class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/25 to-transparent"></span>
+      <span class="relative z-10 block">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r ${promo.badge} px-2.5 py-1 text-[8px] font-extrabold uppercase tracking-[0.14em] text-white shadow-sm">
+          <i data-lucide="sparkles" class="h-3 w-3"></i> ${escapeHtml(promo.kicker)}
+        </span>
+        <span class="mt-2 block font-display text-lg font-extrabold leading-6 text-white">${escapeHtml(promo.title)}</span>
+        <span class="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-rose-100">${escapeHtml(promo.cta)} <i data-lucide="arrow-right" class="h-3 w-3"></i></span>
+      </span>
+    </button>
+  `;
+}
+
+function renderCarouselSlide(slide, isDuplicate) {
+  const markup = slide.type === 'product'
+    ? carouselProductMarkup(slide.product, isDuplicate)
+    : carouselPromoMarkup(slide, isDuplicate);
+  return `<div class="carousel-item"${isDuplicate ? ' aria-hidden="true"' : ''}>${markup}</div>`;
+}
+
+function initCarousel() {
+  const track = $('carousel-track');
+  if (!track) return;
+  const slides = CAROUSEL_ENTRIES.map((entry) => entry.type === 'product'
+    ? { type: 'product', product: PRODUCTS.find((item) => item.id === entry.id) }
+    : entry
+  ).filter((slide) => slide.type === 'promo' || slide.product);
+  if (!slides.length) return;
+
+  const uniqueMarkup = slides.map((slide) => renderCarouselSlide(slide, false)).join('');
+  const loopMarkup = slides.map((slide) => renderCarouselSlide(slide, true)).join('');
+  track.innerHTML = uniqueMarkup + loopMarkup;
+  track.style.setProperty('--carousel-duration', `${slides.length * 4}s`);
+
+  const wrap = $('featured-carousel');
+  if (wrap && !wrap.dataset.pauseBound) {
+    wrap.dataset.pauseBound = 'true';
+    let resumeTimer;
+    const pause = () => {
+      window.clearTimeout(resumeTimer);
+      wrap.classList.add('is-paused');
+    };
+    const resume = () => {
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(() => wrap.classList.remove('is-paused'), 1200);
+    };
+    wrap.addEventListener('pointerdown', pause);
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach((eventName) => wrap.addEventListener(eventName, resume));
+  }
+
+  if (window.lucide) lucide.createIcons();
+}
+
+function syncCarouselWishlist() {
+  document.querySelectorAll('[data-carousel-wish]').forEach((button) => {
+    const id = Number(button.dataset.carouselWish);
+    const isWished = wishlist.includes(id);
+    button.setAttribute('aria-pressed', String(isWished));
+    button.setAttribute('aria-label', `${isWished ? 'Remove from' : 'Add to'} wishlist`);
+    button.classList.toggle('text-rose-600', isWished);
+    const icon = button.querySelector('svg');
+    if (icon) icon.classList.toggle('fill-current', isWished);
+  });
+}
+
 function getFilteredProducts() {
   const query = currentSearch.trim().toLowerCase();
   let items = PRODUCTS.filter((product) => {
@@ -1123,11 +1293,16 @@ function addToCart(id, event, button) {
   saveState();
   renderCart();
   showToast(`${product.name} added to cart`);
+  if (button && event && event.pointerType === 'touch') button.blur();
 
   if (button) {
     const originalHTML = button.innerHTML;
+    const wasGradient = button.classList.contains('bg-gradient-to-r');
     button.disabled = true;
-    button.classList.remove('bg-rose-600', 'hover:bg-rose-700', 'active:bg-rose-800');
+    button.classList.remove(
+      'bg-rose-600', 'hover:bg-rose-700', 'active:bg-rose-800',
+      'bg-gradient-to-r', 'from-rose-600', 'to-fuchsia-600', 'hover:from-rose-700', 'hover:to-fuchsia-700'
+    );
     button.classList.add('bg-stone-900', 'text-rose-300');
     button.innerHTML = '<i data-lucide="check" class="h-3 w-3"></i> Added';
     if (window.lucide) lucide.createIcons();
@@ -1135,6 +1310,10 @@ function addToCart(id, event, button) {
     window.setTimeout(() => {
       button.classList.remove('bg-stone-900', 'text-rose-300');
       button.classList.add('bg-rose-600', 'hover:bg-rose-700');
+      if (wasGradient) {
+        button.classList.remove('bg-rose-600', 'hover:bg-rose-700');
+        button.classList.add('bg-gradient-to-r', 'from-rose-600', 'to-fuchsia-600', 'hover:from-rose-700', 'hover:to-fuchsia-700');
+      }
       button.innerHTML = originalHTML;
       button.disabled = false;
       if (window.lucide) lucide.createIcons();
@@ -1232,7 +1411,9 @@ function toggleWishlist(id, event) {
   saveState();
   applyFilters();
   renderWishlist();
+  syncCarouselWishlist();
   showToast(wasWished ? `${product.name} removed from wishlist` : `${product.name} saved to wishlist`, wasWished ? 'info' : 'success');
+  if (event && event.pointerType === 'touch' && event.currentTarget) event.currentTarget.blur();
 }
 
 function moveToCart(id) {
@@ -1247,6 +1428,7 @@ function moveToCart(id) {
   wishlist = wishlist.filter((entry) => entry !== id);
   saveState();
   renderWishlist();
+  syncCarouselWishlist();
   renderCart();
   applyFilters();
   openModal('cart-modal');
@@ -1448,9 +1630,9 @@ function showToast(message, type = 'success') {
   const container = $('toast-container');
   if (!container) return;
   const configs = {
-    success: { icon: 'check-circle-2', iconClass: 'bg-emerald-50 text-emerald-600', border: 'border-emerald-100' },
-    info: { icon: 'info', iconClass: 'bg-rose-50 text-rose-600', border: 'border-rose-100' },
-    error: { icon: 'alert-circle', iconClass: 'bg-rose-100 text-rose-700', border: 'border-rose-200' },
+    success: { icon: 'check-circle-2', gradient: 'from-emerald-500 via-teal-500 to-green-600', shadow: 'shadow-emerald-500/30' },
+    info: { icon: 'sparkles', gradient: 'from-rose-500 via-pink-500 to-fuchsia-600', shadow: 'shadow-fuchsia-500/30' },
+    error: { icon: 'alert-circle', gradient: 'from-orange-500 via-rose-500 to-red-600', shadow: 'shadow-rose-500/30' },
   };
   const config = configs[type] || configs.info;
 
@@ -1459,18 +1641,19 @@ function showToast(message, type = 'success') {
   }
 
   const toast = document.createElement('div');
-  toast.className = `toast-in pointer-events-auto flex items-start gap-3 rounded-2xl border bg-white/95 px-3.5 py-3 text-stone-800 shadow-xl backdrop-blur transition-all duration-200 ${config.border}`;
+  toast.className = `toast-in pointer-events-auto relative flex items-start gap-3 overflow-hidden rounded-2xl border border-white/25 bg-gradient-to-r ${config.gradient} px-3.5 py-3 text-white shadow-xl ${config.shadow} ring-1 ring-white/10 transition-all duration-200`;
   toast.setAttribute('role', 'status');
   toast.innerHTML = `
-    <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full ${config.iconClass}"><i data-lucide="${config.icon}" class="h-3.5 w-3.5"></i></span>
+    <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/20 text-white ring-1 ring-white/30"><i data-lucide="${config.icon}" class="h-3.5 w-3.5"></i></span>
     <p class="min-w-0 flex-1 text-[11px] font-semibold leading-5">${escapeHtml(message)}</p>
-    <button type="button" aria-label="Dismiss notification" class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full text-stone-400 transition hover:bg-stone-100 hover:text-stone-700"><i data-lucide="x" class="h-3 w-3"></i></button>
+    <button type="button" aria-label="Dismiss notification" class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/10 text-white/80 transition hover:bg-white/25 hover:text-white"><i data-lucide="x" class="h-3 w-3"></i></button>
+    <span class="toast-progress absolute inset-x-0 bottom-0 h-0.5 bg-white/60" aria-hidden="true"></span>
   `;
   container.appendChild(toast);
   if (window.lucide) lucide.createIcons();
 
   const dismiss = () => {
-    toast.classList.add('opacity-0', 'translate-y-1');
+    toast.classList.add('opacity-0', 'translate-y-1', 'scale-[.98]');
     window.setTimeout(() => toast.remove(), 200);
   };
   toast.querySelector('button').addEventListener('click', dismiss);
@@ -1485,14 +1668,18 @@ let onlineTimer;
 function showNetworkStatus(isOnline) {
   if (!networkToast || !networkIcon || !networkText) return;
   clearTimeout(onlineTimer);
-  networkToast.classList.remove('hidden', 'flex', 'bg-red-600', 'text-white', 'border-red-500', 'bg-stone-900', 'text-rose-300', 'border-stone-700');
+  networkToast.classList.remove(
+    'hidden', 'flex', 'bg-gradient-to-r',
+    'from-orange-500', 'via-rose-500', 'to-red-600', 'shadow-rose-500/30',
+    'from-emerald-500', 'via-teal-500', 'to-green-600', 'shadow-emerald-500/30'
+  );
 
   if (!isOnline) {
-    networkToast.classList.add('flex', 'bg-red-600', 'text-white', 'border-red-500');
+    networkToast.classList.add('flex', 'bg-gradient-to-r', 'from-orange-500', 'via-rose-500', 'to-red-600', 'shadow-rose-500/30');
     networkIcon.setAttribute('data-lucide', 'wifi-off');
     networkText.textContent = 'No internet connection. WhatsApp checkout is unavailable.';
   } else {
-    networkToast.classList.add('flex', 'bg-stone-900', 'text-rose-300', 'border-stone-700');
+    networkToast.classList.add('flex', 'bg-gradient-to-r', 'from-emerald-500', 'via-teal-500', 'to-green-600', 'shadow-emerald-500/30');
     networkIcon.setAttribute('data-lucide', 'wifi');
     networkText.textContent = 'Back online. You can continue to WhatsApp checkout.';
     onlineTimer = window.setTimeout(() => {
@@ -1585,6 +1772,7 @@ window.addEventListener('online', () => showNetworkStatus(true));
 renderSidebarNav();
 renderMobilePills();
 renderCategoryRail();
+initCarousel();
 updateHeroStats();
 applyFilters();
 renderCart();
