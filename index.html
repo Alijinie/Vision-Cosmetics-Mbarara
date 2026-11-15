@@ -1768,6 +1768,36 @@ const PRODUCTS = [
     desc: '80g Collagen cream for an even & brighter skin tone',
     wsMin: 12, wsPrice: 18000
   },
+    {
+    id: 124,
+    name: 'Naturals- Vitamin C Facial Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 30000,
+    image: 'vx1.jpg',
+    desc: '30ml 80% Natural, Vitamin C20, Vitamin E, Astaxanthin, Hyaluronic Acid, Rose Hips Extract',
+    wsMin: 12, wsPrice: 25000
+  },
+    {
+    id: 125,
+    name: 'Estelin Spots Fading Face Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 25000,
+    image: 'vx2.jpg',
+    desc: '35ml Rosehip Niacinamide',
+    wsMin: 12, wsPrice: 18000
+  },
+    {
+    id: 126,
+    name: 'Dark Spot Correcting Glow Serum',
+    category: 'Serums & Special Treatments',
+    categories: ['Serums & Special Treatments'],
+    price: 25000,
+    image: 'vx3.jpg',
+    desc: 'Activated niacinamide helps correct dark spots and bright skin',
+    wsMin: 12, wsPrice: 18000
+  },
 ];
 
 let cart = JSON.parse(localStorage.getItem('vc_cart_v2')) || [];
@@ -1869,15 +1899,15 @@ function updateHeroStats() {
 }
 
 const CAROUSEL_ENTRIES = [
-  { type: 'promo', image: 'pr1.jpg', kicker: 'Original Products', title: 'Original skincare picks', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600'  },
+  { type: 'promo', image: 'snset.jpg', kicker: 'Original Products', title: 'Original skincare picks', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600'  },
   { type: 'promo', image: 'pr2.jpg', kicker: 'Retail & wholesale', title: 'Stock your shop for less', cta: 'Ask about wholesale', action: 'wholesale', badge: 'from-rose-500 to-fuchsia-600' },
  
-  { type: 'promo', image: 'pr3.jpg', kicker: 'Daily glow', title: 'Original Beauty picks', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600' },
+  { type: 'promo', image: 'vx1.jpg', kicker: 'Daily glow', title: 'Original Beauty picks', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600' },
 
-  { type: 'promo', image: 'pr4.jpg', kicker: 'Sun care', title: 'Open every day', cta: 'Buy Original', action: 'body', badge: 'from-amber-500 to-orange-600' },
+  { type: 'promo', image: 'vx2.jpg', kicker: 'Sun care', title: 'Open every day', cta: 'Buy Original', action: 'body', badge: 'from-amber-500 to-orange-600' },
 
   { type: 'promo', image: 'skySoap.jpg', kicker: 'Retail & Wholesale', title: 'Soft, smooth, glowing skin', cta: 'Shop body care', action: 'body', badge: 'from-emerald-500 to-teal-600' },
-  {type: 'promo', image: 'pr5.jpg', kicker: 'Daily glow', title: 'Quality & Class', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600'} 
+  {type: 'promo', image: 'prlx.jpg', kicker: 'Daily glow', title: 'Quality & Class', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600'} 
 ];
 
 function carouselPromoAction(action) {
