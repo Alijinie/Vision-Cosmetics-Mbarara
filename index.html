@@ -82,6 +82,24 @@
   .safe-bottom { padding-bottom: max(.6rem, env(safe-area-inset-bottom)); }
   .focus-ring:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid #e11d48; outline-offset: 2px; }
   #mob-wish-count:not(.hidden), #mob-cart-count:not(.hidden) { display: grid; }
+  .view-tab { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid transparent; border-radius: 999px; padding: .55rem .95rem; font-size: .72rem; font-weight: 800; color: #78716c; transition: background-color .2s, color .2s, box-shadow .2s, border-color .2s; }
+  .view-tab:hover { border-color: #fecdd3; background: #fff1f2; color: #9f1239; }
+  .view-tab.is-active { border-color: transparent; background: linear-gradient(135deg, #e11d48, #be123c); color: #fff; box-shadow: 0 14px 25px -18px rgba(225,29,72,.8); }
+  .view-tab .view-tab-count { border-radius: 999px; background: rgba(28,25,23,.06); color: #78716c; padding: .1rem .4rem; font-size: .58rem; font-weight: 800; line-height: 1.2; }
+  .view-tab.is-active .view-tab-count { background: rgba(255,255,255,.2); color: #fff; }
+  .view-panel[hidden] { display: none !important; }
+  #enquiry { scroll-margin-top: 5rem; }
+  @media (min-width: 768px) { #enquiry { scroll-margin-top: 1.5rem; } }
+  .form-control { width: 100%; border: 1px solid #e7e5e4; border-radius: .8rem; background: #fff; padding: .72rem .85rem; font-size: 1rem; line-height: 1.4; color: #292524; transition: border-color .2s, box-shadow .2s, background-color .2s; }
+  .form-control::placeholder { color: #a8a29e; }
+  .form-control:focus { outline: none; border-color: #fb7185; box-shadow: 0 0 0 4px rgba(225,29,72,.09); }
+  .form-control[aria-invalid="true"] { border-color: #e11d48; background: #fff1f2; }
+  .form-control[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(225,29,72,.12); }
+  @media (min-width: 640px) { .form-control { font-size: .875rem; } }
+  .field-error { display: none; margin-top: .35rem; font-size: .6875rem; font-weight: 600; line-height: 1.35; color: #be123c; }
+  .field-error.is-visible { display: flex; align-items: flex-start; gap: .3rem; }
+  .form-check { width: 1.05rem; height: 1.05rem; flex: 0 0 auto; margin-top: .15rem; accent-color: #e11d48; }
+  .honeypot { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .fade-in, .toast-in, .app-modal [role="dialog"], .toast-progress { animation: none; }
@@ -90,6 +108,7 @@
     .carousel-wrap { overflow-x: auto; scroll-snap-type: x mandatory; }
     .carousel-item { scroll-snap-align: start; }
     .carousel-item[aria-hidden="true"] { display: none; }
+    .view-panel { animation: none; }
   }
 </style>
 </head>
@@ -99,7 +118,7 @@
 
   <aside class="sticky top-0 z-40 hidden h-screen w-[280px] shrink-0 flex-col justify-between border-r border-rose-100/80 bg-white/95 p-5 md:flex">
     <div class="flex min-h-0 flex-1 flex-col">
-      <a href="#top" class="flex items-center gap-3 rounded-2xl px-1 py-1 focus-ring">
+      <a href="#top" data-view-link="shop" class="flex items-center gap-3 rounded-2xl px-1 py-1 focus-ring">
         <div class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-rose-600 to-fuchsia-700 text-white shadow-lg shadow-rose-600/25">
           <span class="font-display text-lg font-extrabold">V</span>
         </div>
@@ -117,6 +136,19 @@
       </div>
 
       <nav id="sidebar-nav" class="min-h-0 flex-1 space-y-1 overflow-y-auto pr-1 scrollbar-hide" aria-label="Product categories"></nav>
+
+      <div class="mt-3 border-t border-stone-100 pt-3">
+        <p class="mb-1 px-2 text-[10px] font-extrabold uppercase tracking-[0.18em] text-stone-400">Discover</p>
+        <button type="button" data-view-link="about" class="nav-item focus-ring">
+          <i data-lucide="info" class="h-4 w-4 shrink-0"></i>
+          <span>About us</span>
+          <i data-lucide="arrow-up-right" class="ml-auto h-3 w-3 opacity-50"></i>
+        </button>
+        <button type="button" data-view-link="enquiry" class="nav-item focus-ring">
+          <i data-lucide="message-square-heart" class="h-4 w-4 shrink-0"></i>
+          <span>Skin enquiry</span>
+        </button>
+      </div>
 
       <div class="relative mt-4 overflow-hidden rounded-2xl bg-gradient-to-br from-rose-600 via-rose-700 to-fuchsia-700 p-4 text-white shadow-lg shadow-rose-700/20">
         <i data-lucide="sparkles" class="pointer-events-none absolute -right-2 -top-3 h-20 w-20 text-white/10"></i>
@@ -149,7 +181,7 @@
   <div class="flex min-h-screen min-w-0 flex-1 flex-col pb-24 md:pb-8">
     <header class="sticky top-0 z-30 border-b border-rose-100/80 bg-white/90 px-4 py-3 backdrop-blur-xl md:hidden">
       <div class="flex items-center justify-between gap-3">
-        <a href="#top" class="flex min-w-0 items-center gap-2.5">
+        <a href="#top" data-view-link="shop" class="flex min-w-0 items-center gap-2.5">
           <div class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-rose-600 to-fuchsia-700 text-white shadow-md shadow-rose-600/25">
             <span class="font-display text-sm font-extrabold">V</span>
           </div>
@@ -169,6 +201,22 @@
     </header>
 
     <main class="w-full min-w-0 flex-1 px-4 pb-10 pt-4 sm:px-6 md:px-7 lg:px-8 lg:pt-7">
+      <nav class="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-rose-100/80 bg-white/90 p-1.5 shadow-sm backdrop-blur sm:mb-5" aria-label="Site sections">
+        <div role="tablist" aria-label="Shop and About Us views" class="flex items-center gap-1">
+          <button type="button" role="tab" id="tab-shop" aria-selected="true" aria-controls="panel-shop" tabindex="0" data-view-tab="shop" class="view-tab is-active focus-ring">
+            <i data-lucide="shopping-bag" class="h-3.5 w-3.5"></i> Shop
+          </button>
+          <button type="button" role="tab" id="tab-about" aria-selected="false" aria-controls="panel-about" tabindex="-1" data-view-tab="about" class="view-tab focus-ring">
+            <i data-lucide="info" class="h-3.5 w-3.5"></i> About Us
+          </button>
+        </div>
+        <button type="button" data-view-link="enquiry" class="hidden items-center gap-1.5 rounded-full bg-rose-50 px-3 py-2 text-[10px] font-extrabold text-rose-700 transition hover:bg-rose-100 sm:inline-flex">
+          <i data-lucide="message-square-heart" class="h-3.5 w-3.5"></i> Skin enquiry
+          <i data-lucide="arrow-right" class="h-3 w-3"></i>
+        </button>
+      </nav>
+
+      <div id="panel-shop" role="tabpanel" aria-labelledby="tab-shop" tabindex="0" class="view-panel">
  <section class="relative mb-6 overflow-hidden rounded-[1.75rem] border border-rose-100/80 bg-gradient-to-br from-[#fff8f6] via-[#fdf1f3] to-[#f9e4eb] p-6 shadow-soft sm:p-8 lg:mb-8 lg:p-10">
   
   <!-- Mobile-only Background Image -->
@@ -345,6 +393,416 @@
         <div id="active-filters" class="mb-4 hidden flex-wrap items-center gap-2" aria-live="polite"></div>
         <div id="product-feed" class="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-4"></div>
       </section>
+      </div>
+
+      <div id="panel-about" role="tabpanel" aria-labelledby="tab-about" tabindex="0" class="view-panel fade-in" hidden>
+        <section class="relative mb-6 overflow-hidden rounded-[1.75rem] border border-rose-100/80 bg-gradient-to-br from-[#fff8f6] via-[#fdf1f3] to-[#f9e4eb] p-6 shadow-soft sm:p-8 lg:mb-8 lg:p-10">
+          <div class="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-rose-200/40 blur-3xl"></div>
+          <div class="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-fuchsia-200/30 blur-3xl"></div>
+
+          <div class="relative z-10 grid items-center gap-8 lg:grid-cols-[1.08fr_.92fr] lg:gap-10">
+            <div class="min-w-0">
+              <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white/80 px-3 py-1.5 text-[9px] font-extrabold uppercase tracking-[0.16em] text-rose-700 backdrop-blur">
+                <span class="h-1.5 w-1.5 rounded-full bg-rose-500"></span> About Vision Cosmetics
+              </div>
+              <h1 class="font-display text-[2rem] font-extrabold leading-[1.05] tracking-[-0.04em] text-stone-900 sm:text-4xl lg:text-[2.85rem]">Creating a <span class="bg-gradient-to-r from-rose-600 to-fuchsia-600 bg-clip-text text-transparent">beautiful world.</span></h1>
+              <p class="mt-4 max-w-xl text-sm leading-6 text-stone-600 sm:text-[15px]">Vision Cosmetics is a Mbarara-based manufacturer, retailer and wholesale distributor of skin, facial, hair and nail care brands. We combine research-led formulations with practical in-store guidance so every customer can make confident choices for their skin.</p>
+              <div class="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+                <button type="button" data-view-link="enquiry" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 px-5 py-3 text-xs font-extrabold text-white shadow-lg shadow-rose-600/25 transition hover:from-rose-700 hover:to-rose-800 active:scale-[0.99]">
+                  <i data-lucide="message-square-heart" class="h-4 w-4"></i> Start a skin enquiry
+                  <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+                </button>
+                <a href="https://wa.me/256774046547?text=Hello%20Vision%20Cosmetics%2C%20I%27d%20like%20to%20talk%20to%20your%20team." target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-xl border border-rose-200 bg-white/80 px-5 py-3 text-xs font-extrabold text-stone-800 backdrop-blur transition hover:border-rose-300 hover:bg-white active:scale-[0.99]">
+                  <i data-lucide="message-circle" class="h-4 w-4 text-rose-600"></i> Talk to our team
+                </a>
+              </div>
+
+              <dl class="mt-7 grid max-w-xl grid-cols-2 gap-3 border-t border-rose-200/60 pt-5 sm:grid-cols-4">
+                <div>
+                  <dt class="text-[9px] font-extrabold uppercase tracking-[0.14em] text-red-900">Products</dt>
+                  <dd class="mt-1 text-sm font-extrabold leading-5 text-stone-900"><span id="about-product-count">120+</span></dd>
+                </div>
+                <div>
+                  <dt class="text-[9px] font-extrabold uppercase tracking-[0.14em] text-red-900">Categories</dt>
+                  <dd class="mt-1 text-sm font-extrabold leading-5 text-stone-900"><span id="about-category-count">8</span></dd>
+                </div>
+                <div>
+                  <dt class="text-[9px] font-extrabold uppercase tracking-[0.14em] text-red-900">Visit</dt>
+                  <dd class="mt-1 text-sm font-extrabold leading-5 text-stone-900">Garage Street</dd>
+                </div>
+                <div>
+                  <dt class="text-[9px] font-extrabold uppercase tracking-[0.14em] text-red-900">Serving</dt>
+                  <dd class="mt-1 text-sm font-extrabold leading-5 text-stone-900">Retail &amp; wholesale</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="relative mx-auto w-full max-w-md pb-10 lg:mx-0 lg:max-w-none">
+              <div class="overflow-hidden rounded-[1.5rem] border-[6px] border-white bg-rose-50 shadow-[0_28px_60px_-36px_rgba(88,28,45,.65)]">
+                <div class="relative aspect-square overflow-hidden">
+                  <img src="hero1.jpg" alt="Vision Cosmetics skin care, hair and beauty services" class="h-full w-full object-cover">
+                  <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/85 via-stone-950/30 to-transparent p-4 pt-12">
+                    <p class="text-[9px] font-extrabold uppercase tracking-[0.16em] text-rose-200">Manufacturer · Retailer · Wholesaler</p>
+                    <p class="mt-1 font-display text-lg font-extrabold leading-6 text-white">Skin, hair, nail &amp; beauty care</p>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute -bottom-1 left-3 w-32 overflow-hidden rounded-2xl border-4 border-white bg-white shadow-xl sm:w-40">
+                <div class="flex items-center gap-2 p-2.5">
+                  <span class="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-600"><i data-lucide="store" class="h-4 w-4"></i></span>
+                  <div class="min-w-0">
+                    <p class="text-[9px] font-extrabold uppercase tracking-[0.12em] text-rose-600">Mbarara</p>
+                    <p class="truncate text-[11px] font-bold text-stone-800">Garage Street</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mb-6 grid gap-3 lg:mb-8 lg:grid-cols-2" aria-labelledby="purpose-title">
+          <h2 id="purpose-title" class="sr-only">Our vision and mission</h2>
+          <article class="relative overflow-hidden rounded-2xl border border-rose-100/80 bg-white p-5 shadow-card sm:p-6">
+            <i data-lucide="target" class="pointer-events-none absolute -right-3 -top-3 h-24 w-24 text-rose-50"></i>
+            <div class="relative">
+              <span class="grid h-10 w-10 place-items-center rounded-xl bg-rose-50 text-rose-600"><i data-lucide="target" class="h-5 w-5"></i></span>
+              <p class="mt-4 text-[9px] font-extrabold uppercase tracking-[0.18em] text-rose-600">Vision statement</p>
+              <p class="mt-2 text-sm font-semibold leading-6 text-stone-800">To be the leading manufacturer of skin, facial, hair and nail care brands in Uganda, East Africa and beyond — offering high-quality, competitive and results-driven products to our customers.</p>
+              <ul class="mt-4 space-y-2 border-t border-stone-100 pt-4 text-[11px] leading-5 text-stone-600">
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Innovative products that are safe to use</li>
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Consumer feedback at the centre of what we do</li>
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Professional development for our people</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="relative overflow-hidden rounded-2xl border border-rose-100/80 bg-gradient-to-br from-rose-600 via-rose-700 to-fuchsia-700 p-5 text-white shadow-lg shadow-rose-700/20 sm:p-6">
+            <i data-lucide="heart-handshake" class="pointer-events-none absolute -right-3 -top-3 h-24 w-24 text-white/10"></i>
+            <div class="relative">
+              <span class="grid h-10 w-10 place-items-center rounded-xl bg-white/15 text-rose-100 ring-1 ring-white/20"><i data-lucide="heart-handshake" class="h-5 w-5"></i></span>
+              <p class="mt-4 text-[9px] font-extrabold uppercase tracking-[0.18em] text-rose-200">Mission statement</p>
+              <p class="mt-2 text-sm font-semibold leading-6 text-white">Vision Cosmetics is dedicated to “creating a beautiful world” through research and the development of high-quality, effective products that promote, restore and maintain hair and skin health, nail care and beauty — for a more beautiful you and me.</p>
+              <a href="https://wa.me/256774046547?text=Hello%20Vision%20Cosmetics%2C%20I%27d%20like%20to%20learn%20more%20about%20your%20products." target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-xl bg-white/15 px-3.5 py-2.5 text-[11px] font-bold text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white/25">
+                <i data-lucide="message-circle" class="h-4 w-4 text-rose-100"></i> Ask us about our products
+              </a>
+            </div>
+          </article>
+        </section>
+
+        <section class="mb-6 rounded-2xl border border-rose-100/80 bg-white p-5 shadow-card sm:p-6 lg:mb-8" aria-labelledby="values-title">
+          <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-rose-600">What guides us</p>
+              <h2 id="values-title" class="mt-1 font-display text-xl font-extrabold tracking-tight text-stone-900 sm:text-2xl">Our values</h2>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="rounded-full border border-rose-100 bg-rose-50/70 px-2.5 py-1 text-[9px] font-bold text-rose-700">Skin care</span>
+              <span class="rounded-full border border-rose-100 bg-rose-50/70 px-2.5 py-1 text-[9px] font-bold text-rose-700">Facial care</span>
+              <span class="rounded-full border border-rose-100 bg-rose-50/70 px-2.5 py-1 text-[9px] font-bold text-rose-700">Hair care</span>
+              <span class="rounded-full border border-rose-100 bg-rose-50/70 px-2.5 py-1 text-[9px] font-bold text-rose-700">Nail care</span>
+              <span class="rounded-full border border-rose-100 bg-rose-50/70 px-2.5 py-1 text-[9px] font-bold text-rose-700">Beauty &amp; wellness</span>
+            </div>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="rounded-xl border border-stone-100 bg-stone-50/60 p-4">
+              <span class="grid h-8 w-8 place-items-center rounded-lg bg-white text-rose-600 shadow-sm"><i data-lucide="flask-conical" class="h-4 w-4"></i></span>
+              <p class="mt-3 text-xs font-extrabold text-stone-900">Research first</p>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">Formulations developed with research and a focus on real, visible results.</p>
+            </div>
+            <div class="rounded-xl border border-stone-100 bg-stone-50/60 p-4">
+              <span class="grid h-8 w-8 place-items-center rounded-lg bg-white text-rose-600 shadow-sm"><i data-lucide="shield-check" class="h-4 w-4"></i></span>
+              <p class="mt-3 text-xs font-extrabold text-stone-900">Safe &amp; effective</p>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">Products selected to be safe to use and gentle on everyday skin.</p>
+            </div>
+            <div class="rounded-xl border border-stone-100 bg-stone-50/60 p-4">
+              <span class="grid h-8 w-8 place-items-center rounded-lg bg-white text-rose-600 shadow-sm"><i data-lucide="messages-square" class="h-4 w-4"></i></span>
+              <p class="mt-3 text-xs font-extrabold text-stone-900">Customer-led</p>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">We listen to feedback and refine our service to keep customers satisfied.</p>
+            </div>
+            <div class="rounded-xl border border-stone-100 bg-stone-50/60 p-4">
+              <span class="grid h-8 w-8 place-items-center rounded-lg bg-white text-rose-600 shadow-sm"><i data-lucide="graduation-cap" class="h-4 w-4"></i></span>
+              <p class="mt-3 text-xs font-extrabold text-stone-900">People power</p>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">Practical know-how and professional growth across our team and industry.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="mb-6 grid gap-3 lg:mb-8 lg:grid-cols-[1.05fr_.95fr]" aria-labelledby="visit-title">
+          <div class="relative overflow-hidden rounded-2xl bg-[#2a141b] p-6 text-rose-100/75 shadow-lg sm:p-7">
+            <div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-rose-600/20 blur-3xl"></div>
+            <div class="relative">
+              <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-rose-300">Come and see us</p>
+              <h2 id="visit-title" class="mt-2 font-display text-2xl font-extrabold tracking-tight text-white">Inside our Mbarara store</h2>
+              <p class="mt-2 max-w-md text-xs leading-5">Browse the shelves, compare products and get friendly guidance before you buy. Retail and wholesale customers are both welcome.</p>
+              <ul class="mt-5 space-y-3 text-xs leading-5">
+                <li class="flex items-start gap-2.5"><i data-lucide="map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i><span><strong class="font-bold text-white">Garage Street, Mbarara</strong><br>Uganda</span></li>
+                <li class="flex items-start gap-2.5"><i data-lucide="clock" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i><span><strong class="font-bold text-white">Open daily</strong><br>7:30 AM – 9:00 PM</span></li>
+                <li class="flex items-start gap-2.5"><i data-lucide="phone" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i><a href="tel:+256774046547" class="font-bold text-white transition hover:text-rose-300">+256 774 046 547</a></li>
+              </ul>
+              <a href="https://wa.me/256774046547?text=Hello%20Vision%20Cosmetics%2C%20I%27d%20like%20to%20visit%20your%20store." target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3.5 py-2.5 text-[11px] font-bold text-white ring-1 ring-white/15 transition hover:bg-white/20">
+                <i data-lucide="message-circle" class="h-4 w-4 text-rose-300"></i> Message us before you visit
+              </a>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="relative overflow-hidden rounded-2xl border border-rose-100 bg-white p-1.5 shadow-card">
+              <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-rose-50">
+                <img src="cosmo222.jpg" alt="Cosmo body lotion on display at Vision Cosmetics in Mbarara" loading="lazy" class="h-full w-full object-cover">
+              </div>
+              <span class="absolute bottom-3 left-3 rounded-full bg-white/90 px-2 py-1 text-[8px] font-extrabold uppercase tracking-wide text-stone-700 backdrop-blur">On our shelves</span>
+            </div>
+            <div class="relative overflow-hidden rounded-2xl border border-rose-100 bg-white p-1.5 shadow-card">
+              <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-rose-50">
+                <img src="dtls.jpg" alt="Body care products displayed in the Vision Cosmetics store" loading="lazy" class="h-full w-full object-cover">
+              </div>
+              <span class="absolute bottom-3 left-3 rounded-full bg-white/90 px-2 py-1 text-[8px] font-extrabold uppercase tracking-wide text-stone-700 backdrop-blur">In-store advice</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="enquiry" class="scroll-mt-6" aria-labelledby="enquiry-title">
+          <div class="grid items-start gap-5 lg:grid-cols-[.82fr_1.18fr]">
+            <div class="lg:sticky lg:top-6">
+              <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white px-3 py-1.5 text-[9px] font-extrabold uppercase tracking-[0.16em] text-rose-700">
+                <span class="h-1.5 w-1.5 rounded-full bg-rose-500"></span> Skin consultation
+              </div>
+              <h2 id="enquiry-title" class="font-display text-2xl font-extrabold tracking-tight text-stone-900 sm:text-3xl">Tell us about your skin.</h2>
+              <p class="mt-2 text-sm leading-6 text-stone-600">Share your concern and a little about your routine. Our team will point you to suitable original products for your skin type and budget.</p>
+              <ul class="mt-5 space-y-3 text-xs leading-5 text-stone-600">
+                <li class="flex items-start gap-2.5"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-rose-50 text-rose-600"><i data-lucide="user-round-check" class="h-3.5 w-3.5"></i></span><span><strong class="font-bold text-stone-900">No account needed.</strong> Just your contact details and your skin concern.</span></li>
+                <li class="flex items-start gap-2.5"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-rose-50 text-rose-600"><i data-lucide="clock-3" class="h-3.5 w-3.5"></i></span><span><strong class="font-bold text-stone-900">We reply in business hours.</strong> Send anytime — we respond during opening hours.</span></li>
+                <li class="flex items-start gap-2.5"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-rose-50 text-rose-600"><i data-lucide="lock" class="h-3.5 w-3.5"></i></span><span><strong class="font-bold text-stone-900">Nothing is stored online.</strong> Your answers go directly to our WhatsApp chat.</span></li>
+              </ul>
+              <div class="mt-5 rounded-2xl border border-amber-200/80 bg-amber-50/80 p-4" role="note">
+                <p class="flex items-start gap-2 text-[11px] font-semibold leading-5 text-amber-900"><i data-lucide="triangle-alert" class="mt-0.5 h-4 w-4 shrink-0 text-amber-600"></i><span><strong>Important:</strong> this enquiry is product guidance, not a medical diagnosis. For persistent, severe or painful symptoms, please see a qualified dermatologist.</span></p>
+              </div>
+              <div class="mt-4 flex items-center gap-3 rounded-2xl border border-stone-100 bg-white p-4 shadow-sm">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-600"><i data-lucide="message-circle" class="h-5 w-5"></i></span>
+                <div class="min-w-0">
+                  <p class="text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-400">Prefer to chat first?</p>
+                  <a href="https://wa.me/256774046547?text=Hello%20Vision%20Cosmetics%2C%20I%20have%20a%20skin%20concern%20and%20would%20like%20some%20guidance." target="_blank" rel="noopener" class="mt-0.5 inline-flex items-center gap-1 text-xs font-extrabold text-emerald-700 transition hover:text-emerald-800">+256 774 046 547 <i data-lucide="arrow-up-right" class="h-3 w-3"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-[1.5rem] border border-rose-100/80 bg-white p-5 shadow-card sm:p-6">
+              <div class="flex flex-wrap items-start justify-between gap-2 border-b border-stone-100 pb-4">
+                <div>
+                  <h3 class="font-display text-base font-extrabold text-stone-900">Customer enquiry form</h3>
+                  <p class="mt-1 text-[11px] leading-5 text-stone-500">Fields marked <span class="font-bold text-rose-600">*</span> are required. It takes about two minutes.</p>
+                </div>
+                <span class="rounded-full bg-emerald-50 px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-emerald-700">Sends via WhatsApp</span>
+              </div>
+
+              <div id="enquiry-error-summary" class="mt-4 hidden rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-xs text-rose-800" role="alert" tabindex="-1" aria-live="assertive"></div>
+
+              <div id="enquiry-success" class="mt-4 hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-4" role="status" tabindex="-1" aria-live="polite">
+                <div class="flex items-start gap-3">
+                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-600 text-white"><i data-lucide="check" class="h-4 w-4"></i></span>
+                  <div class="min-w-0">
+                    <p class="text-sm font-extrabold text-emerald-900">Your enquiry is ready</p>
+                    <p class="mt-1 text-[11px] leading-5 text-emerald-800">WhatsApp should have opened with your details. If it did not, use the link below — then press send in WhatsApp to reach our team.</p>
+                    <div class="mt-3 flex flex-wrap items-center gap-2">
+                      <a id="enquiry-success-link" href="https://wa.me/256774046547" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3 py-2 text-[10px] font-extrabold text-white transition hover:bg-emerald-800"><i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Open WhatsApp</a>
+                      <button type="button" id="enquiry-success-reset" class="rounded-lg border border-emerald-300 px-3 py-2 text-[10px] font-bold text-emerald-800 transition hover:bg-emerald-100">Send another enquiry</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <form id="enquiry-form" class="mt-5 space-y-6" novalidate>
+                <fieldset>
+                  <legend class="font-display text-sm font-extrabold text-stone-900">1. Your details</legend>
+                  <div class="mt-3 grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label for="enq-name" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Full name <span class="text-rose-600">*</span></label>
+                      <input type="text" id="enq-name" name="name" autocomplete="name" maxlength="80" placeholder="e.g. Jane Nakato" class="form-control mt-1.5" aria-describedby="enq-name-error" required>
+                      <p id="enq-name-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <label for="enq-phone" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Phone number <span class="text-rose-600">*</span></label>
+                      <input type="tel" id="enq-phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="e.g. 0774 046 547" class="form-control mt-1.5" aria-describedby="enq-phone-hint enq-phone-error" required>
+                      <p id="enq-phone-hint" class="mt-1 text-[10px] text-stone-400">Ugandan number: 07… or +256 7…</p>
+                      <p id="enq-phone-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <label for="enq-email" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Email <span id="enq-email-requirement" class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                      <input type="email" id="enq-email" name="email" autocomplete="email" inputmode="email" maxlength="120" placeholder="e.g. jane@example.com" class="form-control mt-1.5" aria-describedby="enq-email-error">
+                      <p id="enq-email-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <label for="enq-location" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Location / area <span class="text-rose-600">*</span></label>
+                      <input type="text" id="enq-location" name="location" autocomplete="address-level2" maxlength="80" placeholder="e.g. Kakoba, Mbarara" class="form-control mt-1.5" aria-describedby="enq-location-error" required>
+                      <p id="enq-location-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <label for="enq-age" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Age range <span class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                      <select id="enq-age" name="age" class="form-control mt-1.5">
+                        <option value="">Prefer not to say</option>
+                        <option>Under 18</option>
+                        <option>18–24</option>
+                        <option>25–34</option>
+                        <option>35–44</option>
+                        <option>45–54</option>
+                        <option>55+</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div id="enq-contact-group" class="mt-4" role="radiogroup" aria-labelledby="enq-contact-label" aria-describedby="enq-contact-error">
+                    <p id="enq-contact-label" class="text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Preferred contact <span class="text-rose-600">*</span></p>
+                    <div class="mt-2 grid gap-2 sm:grid-cols-3">
+                      <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-xs font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40">
+                        <input type="radio" name="enq-contact" value="WhatsApp" checked class="form-check">
+                        <span class="flex items-center gap-1.5"><i data-lucide="message-circle" class="h-3.5 w-3.5 text-emerald-600"></i> WhatsApp</span>
+                      </label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-xs font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40">
+                        <input type="radio" name="enq-contact" value="Phone call" class="form-check">
+                        <span class="flex items-center gap-1.5"><i data-lucide="phone" class="h-3.5 w-3.5 text-rose-600"></i> Phone call</span>
+                      </label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-xs font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40">
+                        <input type="radio" name="enq-contact" value="Email" class="form-check">
+                        <span class="flex items-center gap-1.5"><i data-lucide="mail" class="h-3.5 w-3.5 text-sky-600"></i> Email</span>
+                      </label>
+                    </div>
+                    <p id="enq-contact-error" class="field-error" role="alert"></p>
+                  </div>
+                </fieldset>
+
+                <fieldset class="border-t border-stone-100 pt-5">
+                  <legend class="font-display text-sm font-extrabold text-stone-900">2. Your skin concern</legend>
+                  <div class="mt-3 grid gap-4 sm:grid-cols-2">
+                    <div class="sm:col-span-2">
+                      <label for="enq-concern" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Primary concern <span class="text-rose-600">*</span></label>
+                      <select id="enq-concern" name="concern" class="form-control mt-1.5" aria-describedby="enq-concern-error" required>
+                        <option value="">Select your main concern</option>
+                        <option>Acne &amp; breakouts</option>
+                        <option>Dark spots &amp; hyperpigmentation</option>
+                        <option>Uneven skin tone</option>
+                        <option>Eczema &amp; dermatitis</option>
+                        <option>Rosacea &amp; redness</option>
+                        <option>Dryness &amp; dehydration</option>
+                        <option>Oily &amp; congested skin</option>
+                        <option>Sensitivity &amp; irritation</option>
+                        <option>Ageing &amp; fine lines</option>
+                        <option>Sun damage</option>
+                        <option>Hair loss &amp; scalp concern</option>
+                        <option>Nail concern</option>
+                        <option>Other</option>
+                      </select>
+                      <p id="enq-concern-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <label for="enq-skin-type" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Skin type <span class="text-rose-600">*</span></label>
+                      <select id="enq-skin-type" name="skinType" class="form-control mt-1.5" aria-describedby="enq-skin-type-error" required>
+                        <option value="">Select skin type</option>
+                        <option>Oily</option>
+                        <option>Dry</option>
+                        <option>Combination</option>
+                        <option>Normal</option>
+                        <option>Sensitive</option>
+                        <option>Not sure</option>
+                      </select>
+                      <p id="enq-skin-type-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <label for="enq-duration" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">How long have you had it? <span class="text-rose-600">*</span></label>
+                      <select id="enq-duration" name="duration" class="form-control mt-1.5" aria-describedby="enq-duration-error" required>
+                        <option value="">Select duration</option>
+                        <option>Less than 2 weeks</option>
+                        <option>2–4 weeks</option>
+                        <option>1–6 months</option>
+                        <option>6–12 months</option>
+                        <option>Over a year</option>
+                      </select>
+                      <p id="enq-duration-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label for="enq-severity" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">How would you describe it? <span class="text-rose-600">*</span></label>
+                      <select id="enq-severity" name="severity" class="form-control mt-1.5" aria-describedby="enq-severity-error" required>
+                        <option value="">Select severity</option>
+                        <option>Mild — noticeable but manageable</option>
+                        <option>Moderate — bothers me most days</option>
+                        <option>Severe — painful or affecting daily life</option>
+                        <option>Not sure</option>
+                      </select>
+                      <p id="enq-severity-error" class="field-error" role="alert"></p>
+                    </div>
+                  </div>
+
+                  <div id="enq-areas-group" class="mt-4" role="group" aria-labelledby="enq-areas-label" aria-describedby="enq-areas-error">
+                    <p id="enq-areas-label" class="text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Where do you see it? <span class="text-rose-600">*</span></p>
+                    <div class="mt-2 grid grid-cols-2 gap-1.5 sm:grid-cols-3">
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Face" class="form-check"> Face</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Neck" class="form-check"> Neck</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Chest" class="form-check"> Chest</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Back" class="form-check"> Back</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Arms" class="form-check"> Arms</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Hands" class="form-check"> Hands</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Legs" class="form-check"> Legs</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Feet" class="form-check"> Feet</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Scalp / hair" class="form-check"> Scalp / hair</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Nails" class="form-check"> Nails</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Full body" class="form-check"> Full body</label>
+                      <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 px-2.5 py-2 text-[11px] font-semibold text-stone-700 transition hover:border-rose-200 hover:bg-rose-50/40"><input type="checkbox" name="enq-areas" value="Other" class="form-check"> Other</label>
+                    </div>
+                    <p id="enq-areas-error" class="field-error" role="alert"></p>
+                  </div>
+                </fieldset>
+
+                <fieldset class="border-t border-stone-100 pt-5">
+                  <legend class="font-display text-sm font-extrabold text-stone-900">3. Your routine &amp; history</legend>
+                  <div class="mt-3 space-y-4">
+                    <div>
+                      <label for="enq-products" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Current products or treatments <span class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                      <textarea id="enq-products" name="products" rows="2" maxlength="300" placeholder="e.g. A cleanser, sunscreen and a brightening lotion" class="form-control mt-1.5 resize-y" aria-describedby="enq-products-error"></textarea>
+                      <p id="enq-products-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <label for="enq-allergies" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Known allergies or reactions <span class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                      <textarea id="enq-allergies" name="allergies" rows="2" maxlength="300" placeholder="e.g. Fragrance, strong acids, or nothing known" class="form-control mt-1.5 resize-y" aria-describedby="enq-allergies-error"></textarea>
+                      <p id="enq-allergies-error" class="field-error" role="alert"></p>
+                    </div>
+                    <div>
+                      <div class="flex items-end justify-between gap-2">
+                        <label for="enq-message" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Describe your concern <span class="text-rose-600">*</span></label>
+                        <span id="enq-message-count" class="text-[10px] font-bold tabular-nums text-stone-400">0 / 600</span>
+                      </div>
+                      <textarea id="enq-message" name="message" rows="4" minlength="20" maxlength="600" placeholder="Tell us what you are noticing, when it started and what you have tried. Please do not include medical records." class="form-control mt-1.5 resize-y" aria-describedby="enq-message-hint enq-message-error" required></textarea>
+                      <p id="enq-message-hint" class="mt-1 text-[10px] text-stone-400">20–600 characters. You can attach skin photos later in WhatsApp.</p>
+                      <p id="enq-message-error" class="field-error" role="alert"></p>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="border-t border-stone-100 pt-5">
+                  <legend class="font-display text-sm font-extrabold text-stone-900">4. Before you send</legend>
+                  <div class="mt-3">
+                    <label class="flex cursor-pointer items-start gap-2.5 rounded-xl border border-stone-200 bg-stone-50/60 p-3 text-[11px] leading-5 text-stone-600">
+                      <input type="checkbox" id="enq-consent" name="consent" class="form-check" aria-describedby="enq-consent-error" required>
+                      <span>I agree to be contacted by Vision Cosmetics about this enquiry. I understand this is product guidance, not a medical diagnosis, and my answers are only shared through WhatsApp — not stored on this website. <span class="text-rose-600">*</span></span>
+                    </label>
+                    <p id="enq-consent-error" class="field-error" role="alert"></p>
+                  </div>
+
+                  <div class="honeypot" aria-hidden="true">
+                    <label for="enq-website">Leave this field empty</label>
+                    <input type="text" id="enq-website" name="website" tabindex="-1" autocomplete="off">
+                  </div>
+
+                  <div class="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center">
+                    <button type="submit" id="enquiry-submit" class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3.5 text-xs font-extrabold text-white shadow-lg shadow-green-600/20 transition hover:bg-[#1ebd5a] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60">
+                      <i data-lucide="send" class="h-4 w-4"></i> Send enquiry via WhatsApp
+                    </button>
+                    <button type="reset" id="enquiry-reset" class="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 px-4 py-3 text-xs font-bold text-stone-600 transition hover:border-rose-200 hover:bg-rose-50/60">Clear form</button>
+                  </div>
+                  <p class="mt-3 flex items-start gap-1.5 text-[10px] leading-4 text-stone-400"><i data-lucide="shield-check" class="mt-0.5 h-3 w-3 shrink-0 text-rose-400"></i> Your details are used only to respond to this enquiry. Nothing is saved by this website.</p>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
 
     <footer class="relative mt-10 w-full overflow-hidden bg-[#2a141b] text-rose-100/65">
@@ -377,6 +835,8 @@
               <li><button data-category-filter="Serums &amp; Special Treatments" class="text-left transition hover:text-rose-300">Serums &amp; Treatments</button></li>
               <li><button data-category-filter="CT+ Clear Therapy" class="text-left transition hover:text-rose-300">CT+ Clear Therapy</button></li>
               <li><button data-category-filter="Body Lotions &amp; Moisturizers" class="text-left transition hover:text-rose-300">Body Lotions</button></li>
+              <li><button data-view-link="about" class="text-left transition hover:text-rose-300">About Vision Cosmetics</button></li>
+              <li><button data-view-link="enquiry" class="text-left transition hover:text-rose-300">Skin enquiry form</button></li>
             </ul>
           </div>
 
@@ -409,26 +869,32 @@
   <nav class="fixed inset-x-0 bottom-0 z-40 md:hidden" aria-label="Mobile navigation">
     <div class="safe-bottom relative border-t border-white/70 bg-gradient-to-r from-rose-50/95 via-fuchsia-50/90 to-amber-50/95 px-4 pt-2 shadow-[0_-14px_32px_-18px_rgba(190,18,60,.4)] backdrop-blur-xl">
       <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-rose-500 via-fuchsia-500 to-amber-400" aria-hidden="true"></div>
-      <div class="mx-auto flex max-w-md items-center justify-between">
-        <button onclick="scrollToTop()" aria-label="Back to top" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+      <div class="mx-auto flex max-w-md items-center justify-between gap-0.5">
+        <button type="button" data-view-link="shop" aria-label="Go to shop" class="group flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1 focus-ring">
           <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-rose-500 to-fuchsia-600 text-white shadow-md shadow-rose-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-rose-500/40 group-active:scale-95">
             <i data-lucide="store" class="h-4 w-4"></i>
           </span>
           <span class="text-[9px] font-extrabold text-rose-600">Shop</span>
         </button>
-        <button onclick="toggleModal('wishlist-modal')" aria-label="Open wishlist" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+        <button type="button" data-view-link="about" aria-label="About Vision Cosmetics" class="group flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1 focus-ring">
+          <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md shadow-amber-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-amber-500/40 group-active:scale-95">
+            <i data-lucide="info" class="h-4 w-4"></i>
+          </span>
+          <span class="text-[9px] font-extrabold text-amber-600">About</span>
+        </button>
+        <button type="button" onclick="toggleModal('wishlist-modal')" aria-label="Open wishlist" class="group flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1 focus-ring">
           <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-md shadow-pink-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-pink-500/40 group-active:scale-95">
             <i data-lucide="heart" class="h-4 w-4"></i>
           </span>
           <span class="text-[9px] font-extrabold text-pink-600">Wishlist</span>
         </button>
-        <button onclick="toggleModal('cart-modal')" aria-label="Open cart" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+        <button type="button" onclick="toggleModal('cart-modal')" aria-label="Open cart" class="group flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1 focus-ring">
           <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-md shadow-violet-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-violet-500/40 group-active:scale-95">
             <i data-lucide="shopping-bag" class="h-4 w-4"></i>
           </span>
           <span class="text-[9px] font-extrabold text-violet-600">Cart</span>
         </button>
-        <a href="https://wa.me/256774046547" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="group flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1 focus-ring">
+        <a href="https://wa.me/256774046547" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="group flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1 focus-ring">
           <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-md shadow-emerald-500/35 transition group-hover:-translate-y-0.5 group-hover:shadow-lg group-hover:shadow-emerald-500/40 group-active:scale-95">
             <i data-lucide="message-circle" class="h-4 w-4"></i>
           </span>
@@ -1894,8 +2360,12 @@ function renderCategoryRail() {
 function updateHeroStats() {
   const productCount = $('hero-product-count');
   const categoryTotal = $('hero-category-count');
+  const aboutProductCount = $('about-product-count');
+  const aboutCategoryCount = $('about-category-count');
   if (productCount) productCount.textContent = PRODUCTS.length;
   if (categoryTotal) categoryTotal.textContent = CATEGORY_META.length;
+  if (aboutProductCount) aboutProductCount.textContent = PRODUCTS.length;
+  if (aboutCategoryCount) aboutCategoryCount.textContent = CATEGORY_META.length;
 }
 
 const CAROUSEL_ENTRIES = [
@@ -2600,10 +3070,508 @@ function showNetworkStatus(isOnline) {
   if (window.lucide) lucide.createIcons();
 }
 
+let currentView = 'shop';
+
+function updateViewHash(hash, mode = 'push') {
+  if (!hash || location.hash === hash) return;
+  try {
+    if (mode === 'replace') history.replaceState(null, '', hash);
+    else history.pushState(null, '', hash);
+  } catch (error) {
+    location.hash = hash;
+  }
+}
+
+function setActiveView(view, options = {}) {
+  const nextView = view === 'about' ? 'about' : 'shop';
+  currentView = nextView;
+  document.title = nextView === 'about'
+    ? 'About Us | Vision Cosmetics Mbarara'
+    : 'Vision Cosmetics Online | Buy Original Products';
+
+  [['shop', $('panel-shop')], ['about', $('panel-about')]].forEach(([name, panel]) => {
+    if (!panel) return;
+    const isActive = name === nextView;
+    panel.hidden = !isActive;
+    panel.classList.toggle('hidden', !isActive);
+    panel.setAttribute('aria-hidden', String(!isActive));
+  });
+
+  document.querySelectorAll('[data-view-tab]').forEach((tab) => {
+    const isActive = tab.dataset.viewTab === nextView;
+    tab.classList.toggle('is-active', isActive);
+    tab.setAttribute('aria-selected', String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
+  });
+
+  document.querySelectorAll('.nav-item[data-view-link="about"]').forEach((link) => {
+    const isActive = nextView === 'about';
+    link.classList.toggle('is-active', isActive);
+    if (isActive) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+
+  if (options.updateHash) updateViewHash(`#${nextView}`, options.hashMode || 'push');
+  if (options.scroll) scrollToTop();
+}
+
+function syncViewFromHash() {
+  const hash = location.hash;
+  if (hash === '#about' || hash === '#enquiry') {
+    setActiveView('about', { updateHash: false });
+    if (hash === '#enquiry') {
+      window.requestAnimationFrame(() => {
+        const target = $('enquiry');
+        if (target) target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+  } else {
+    setActiveView('shop', { updateHash: false });
+  }
+}
+
+function openEnquiry() {
+  setActiveView('about', { updateHash: false, scroll: false });
+  updateViewHash('#enquiry');
+  window.requestAnimationFrame(() => {
+    const target = $('enquiry');
+    if (target) target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+  });
+}
+
+function initViewTabs() {
+  const tablist = document.querySelector('[data-view-tab]')?.closest('[role="tablist"]');
+  if (!tablist) return;
+  const tabs = Array.from(tablist.querySelectorAll('[data-view-tab]'));
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      setActiveView(tab.dataset.viewTab, { updateHash: true, scroll: true });
+    });
+
+    tab.addEventListener('keydown', (event) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const currentIndex = tabs.indexOf(tab);
+      let nextIndex = currentIndex;
+      if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = tabs.length - 1;
+      tabs[nextIndex].focus();
+      setActiveView(tabs[nextIndex].dataset.viewTab, { updateHash: true, scroll: true });
+    });
+  });
+
+  window.addEventListener('popstate', syncViewFromHash);
+  window.addEventListener('hashchange', syncViewFromHash);
+  syncViewFromHash();
+}
+
+const ENQUIRY_ERROR_MAP = {
+  name: { field: 'enq-name', error: 'enq-name-error' },
+  phone: { field: 'enq-phone', error: 'enq-phone-error' },
+  email: { field: 'enq-email', error: 'enq-email-error' },
+  location: { field: 'enq-location', error: 'enq-location-error' },
+  contact: { field: null, group: 'enq-contact-group', error: 'enq-contact-error' },
+  concern: { field: 'enq-concern', error: 'enq-concern-error' },
+  skinType: { field: 'enq-skin-type', error: 'enq-skin-type-error' },
+  duration: { field: 'enq-duration', error: 'enq-duration-error' },
+  severity: { field: 'enq-severity', error: 'enq-severity-error' },
+  areas: { field: null, group: 'enq-areas-group', error: 'enq-areas-error' },
+  message: { field: 'enq-message', error: 'enq-message-error' },
+  consent: { field: 'enq-consent', error: 'enq-consent-error' },
+};
+
+const ENQUIRY_FIELD_KEYS = Object.keys(ENQUIRY_ERROR_MAP);
+const ENQUIRY_CONTROL_KEYS = {
+  'enq-name': 'name',
+  'enq-phone': 'phone',
+  'enq-email': 'email',
+  'enq-location': 'location',
+  'enq-concern': 'concern',
+  'enq-skin-type': 'skinType',
+  'enq-duration': 'duration',
+  'enq-severity': 'severity',
+  'enq-message': 'message',
+  'enq-consent': 'consent',
+};
+
+let enquirySubmitting = false;
+
+function cleanText(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
+function getCheckedValue(name) {
+  const checked = document.querySelector(`input[name="${name}"]:checked`);
+  return checked ? checked.value : '';
+}
+
+function normalizeEnquiryPhone(raw) {
+  const value = String(raw ?? '').replace(/[\s().-]/g, '');
+  if (!value) return null;
+  if (/^\+?2567\d{8}$/.test(value)) return `+2567${value.slice(-8)}`;
+  if (/^07\d{8}$/.test(value)) return `+256${value.slice(1)}`;
+  if (/^7\d{8}$/.test(value)) return `+256${value}`;
+  return null;
+}
+
+function readEnquiryForm() {
+  const value = (id) => String($(id)?.value ?? '');
+  return {
+    name: cleanText(value('enq-name')),
+    phoneRaw: value('enq-phone').trim(),
+    phone: normalizeEnquiryPhone(value('enq-phone')),
+    email: cleanText(value('enq-email')),
+    location: cleanText(value('enq-location')),
+    age: value('enq-age'),
+    contact: getCheckedValue('enq-contact'),
+    concern: value('enq-concern'),
+    skinType: value('enq-skin-type'),
+    duration: value('enq-duration'),
+    severity: value('enq-severity'),
+    areas: Array.from(document.querySelectorAll('input[name="enq-areas"]:checked')).map((input) => input.value),
+    products: value('enq-products').trim(),
+    allergies: value('enq-allergies').trim(),
+    message: value('enq-message').trim(),
+    consent: Boolean($('enq-consent')?.checked),
+    honeypot: value('enq-website').trim(),
+  };
+}
+
+function getEnquiryFieldError(key) {
+  const data = readEnquiryForm();
+
+  if (key === 'name') {
+    if (!data.name) return 'Please enter your full name.';
+    if (data.name.length < 2) return 'Please enter at least 2 characters.';
+    if (data.name.length > 80) return 'Please use 80 characters or fewer.';
+    if (!/^[\p{L}][\p{L}\s'’.-]*$/u.test(data.name)) return 'Use letters, spaces, apostrophes or hyphens only.';
+    return '';
+  }
+  if (key === 'phone') {
+    if (!data.phoneRaw) return 'Please enter your phone number.';
+    if (!data.phone) return 'Enter a valid Ugandan number, e.g. 0774 046 547.';
+    return '';
+  }
+  if (key === 'email') {
+    if (!data.email) return data.contact === 'Email' ? 'Enter your email address so we can reply.' : '';
+    if (data.email.length > 120) return 'Please use 120 characters or fewer.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) return 'Enter a valid email address, e.g. name@example.com.';
+    return '';
+  }
+  if (key === 'location') {
+    if (!data.location) return 'Please enter your town or area.';
+    if (data.location.length < 2) return 'Please enter at least 2 characters.';
+    if (data.location.length > 80) return 'Please use 80 characters or fewer.';
+    if (!/^[\p{L}\p{N}][\p{L}\p{N}\s,.'’/-]*$/u.test(data.location)) return 'Use letters, numbers, spaces, commas or hyphens.';
+    return '';
+  }
+  if (key === 'contact') {
+    if (!data.contact) return 'Choose how you would like us to contact you.';
+    return '';
+  }
+  if (key === 'concern') {
+    if (!data.concern) return 'Select your primary skin concern.';
+    return '';
+  }
+  if (key === 'skinType') {
+    if (!data.skinType) return 'Select your skin type.';
+    return '';
+  }
+  if (key === 'duration') {
+    if (!data.duration) return 'Select how long you have had this concern.';
+    return '';
+  }
+  if (key === 'severity') {
+    if (!data.severity) return 'Select how severe the concern feels.';
+    return '';
+  }
+  if (key === 'areas') {
+    if (!data.areas.length) return 'Select at least one affected area.';
+    return '';
+  }
+  if (key === 'message') {
+    if (!data.message) return 'Please describe your concern.';
+    if (data.message.length < 20) return 'Please add a little more detail — at least 20 characters.';
+    if (data.message.length > 600) return 'Please keep your description under 600 characters.';
+    return '';
+  }
+  if (key === 'consent') {
+    if (!data.consent) return 'Please agree to be contacted before sending.';
+    return '';
+  }
+  return '';
+}
+
+function setEnquiryFieldError(key, message) {
+  const config = ENQUIRY_ERROR_MAP[key];
+  if (!config) return;
+  const error = $(config.error);
+  if (error) {
+    error.textContent = message || '';
+    error.classList.toggle('is-visible', Boolean(message));
+  }
+  const group = config.group ? $(config.group) : null;
+  if (group) {
+    if (message) group.setAttribute('aria-invalid', 'true');
+    else group.removeAttribute('aria-invalid');
+  }
+  if (!config.field) return;
+  const field = $(config.field);
+  if (!field) return;
+  if (message) field.setAttribute('aria-invalid', 'true');
+  else field.removeAttribute('aria-invalid');
+}
+
+function clearEnquiryErrors() {
+  ENQUIRY_FIELD_KEYS.forEach((key) => setEnquiryFieldError(key, ''));
+}
+
+function showEnquirySummary(errors) {
+  const summary = $('enquiry-error-summary');
+  if (!summary) return;
+  const messages = Object.values(errors).filter(Boolean);
+  if (!messages.length) {
+    summary.innerHTML = '';
+    summary.classList.add('hidden');
+    return;
+  }
+  const heading = errors.network ? 'Enquiry not sent.' : 'Please check the highlighted fields.';
+  summary.innerHTML = `<p class="font-extrabold">${heading}</p><ul class="mt-2 list-disc space-y-1 pl-4">${messages.map((message) => `<li>${escapeHtml(message)}</li>`).join('')}</ul>`;
+  summary.classList.remove('hidden');
+}
+
+function validateEnquiryForm() {
+  const errors = {};
+  ENQUIRY_FIELD_KEYS.forEach((key) => {
+    const message = getEnquiryFieldError(key);
+    if (message) errors[key] = message;
+  });
+  return { valid: Object.keys(errors).length === 0, errors, data: readEnquiryForm() };
+}
+
+function showEnquiryErrors(errors) {
+  ENQUIRY_FIELD_KEYS.forEach((key) => setEnquiryFieldError(key, errors[key] || ''));
+  showEnquirySummary(errors);
+}
+
+function focusEnquiryError(key) {
+  if (key === 'areas') {
+    document.querySelector('input[name="enq-areas"]')?.focus();
+    return;
+  }
+  if (key === 'contact') {
+    document.querySelector('input[name="enq-contact"]')?.focus();
+    return;
+  }
+  const config = ENQUIRY_ERROR_MAP[key];
+  if (config?.field) $(config.field)?.focus();
+}
+
+function updateEnquiryMessageCount() {
+  const input = $('enq-message');
+  const counter = $('enq-message-count');
+  if (!input || !counter) return;
+  counter.textContent = `${input.value.length} / 600`;
+  counter.classList.toggle('text-rose-600', input.value.length > 600);
+}
+
+function syncEnquiryContactRequirement() {
+  const emailInput = $('enq-email');
+  const requirement = $('enq-email-requirement');
+  if (!emailInput) return;
+  const byEmail = getCheckedValue('enq-contact') === 'Email';
+  emailInput.setAttribute('aria-required', String(byEmail));
+  if (requirement) {
+    requirement.textContent = byEmail ? '(required for email contact)' : '(optional)';
+    requirement.classList.toggle('text-rose-600', byEmail);
+    requirement.classList.toggle('text-stone-400', !byEmail);
+  }
+}
+
+function buildEnquiryMessage(data) {
+  const lines = [
+    '*NEW SKIN ENQUIRY - VISION COSMETICS MBARARA*',
+    `Submitted: ${new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`,
+    '',
+    '*CUSTOMER DETAILS*',
+    `Name: ${data.name}`,
+    `Phone: ${data.phone}`,
+  ];
+  if (data.email) lines.push(`Email: ${data.email}`);
+  lines.push(
+    `Location: ${data.location}`,
+    `Age range: ${data.age || 'Not provided'}`,
+    `Preferred contact: ${data.contact}`,
+    '',
+    '*SKIN CONCERN*',
+    `Primary concern: ${data.concern}`,
+    `Skin type: ${data.skinType}`,
+    `Duration: ${data.duration}`,
+    `Severity: ${data.severity}`,
+    `Affected areas: ${data.areas.join(', ')}`,
+    '',
+    '*ROUTINE & HISTORY*',
+    `Current products: ${data.products || 'Not provided'}`,
+    `Known allergies: ${data.allergies || 'Not provided'}`,
+    '',
+    '*DESCRIPTION*',
+    data.message,
+    '',
+    'Consent: Yes - customer agreed to be contacted about this enquiry.',
+    '_This is a product guidance enquiry, not a medical diagnosis._'
+  );
+  return lines.join('\n');
+}
+
+function setEnquirySubmitting(isSubmitting) {
+  const button = $('enquiry-submit');
+  enquirySubmitting = isSubmitting;
+  if (!button) return;
+  button.disabled = isSubmitting;
+  button.setAttribute('aria-busy', String(isSubmitting));
+  button.innerHTML = isSubmitting
+    ? 'Opening WhatsApp…'
+    : '<i data-lucide="send" class="h-4 w-4"></i> Send enquiry via WhatsApp';
+  if (window.lucide) lucide.createIcons();
+}
+
+function showEnquirySuccess(url) {
+  const success = $('enquiry-success');
+  const link = $('enquiry-success-link');
+  if (link) link.href = url;
+  if (!success) return;
+  success.classList.remove('hidden');
+  success.focus({ preventScroll: true });
+  success.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'nearest' });
+}
+
+function hideEnquirySuccess() {
+  const success = $('enquiry-success');
+  if (success) success.classList.add('hidden');
+}
+
+function cleanupEnquiryForm() {
+  clearEnquiryErrors();
+  showEnquirySummary({});
+  hideEnquirySuccess();
+  setEnquirySubmitting(false);
+  updateEnquiryMessageCount();
+  syncEnquiryContactRequirement();
+}
+
+function handleEnquirySubmit(event) {
+  event.preventDefault();
+  if (enquirySubmitting) return;
+
+  const honeypot = $('enq-website');
+  if (honeypot && honeypot.value.trim()) return;
+
+  const { valid, errors, data } = validateEnquiryForm();
+  showEnquiryErrors(errors);
+  hideEnquirySuccess();
+
+  if (!valid) {
+    const firstKey = ENQUIRY_FIELD_KEYS.find((key) => errors[key]);
+    focusEnquiryError(firstKey);
+    return;
+  }
+
+  if (!navigator.onLine) {
+    showEnquirySummary({ network: 'You are offline. Reconnect to send your enquiry.' });
+    showNetworkStatus(false);
+    return;
+  }
+
+  setEnquirySubmitting(true);
+  const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(buildEnquiryMessage(data))}`;
+  window.open(url, '_blank', 'noopener');
+  showEnquirySuccess(url);
+  showToast('Enquiry ready — complete it in WhatsApp');
+  setEnquirySubmitting(false);
+}
+
+function validateEnquiryControl(target) {
+  if (!(target instanceof HTMLElement)) return;
+  let key = ENQUIRY_CONTROL_KEYS[target.id];
+  if (target.name === 'enq-areas') key = 'areas';
+  if (target.name === 'enq-contact') key = 'contact';
+  if (!key) return;
+  setEnquiryFieldError(key, getEnquiryFieldError(key));
+  if (key === 'contact') {
+    syncEnquiryContactRequirement();
+    if (getCheckedValue('enq-contact') !== 'Email' || String($('enq-email')?.value ?? '').trim()) {
+      setEnquiryFieldError('email', getEnquiryFieldError('email'));
+    }
+  }
+}
+
+function initEnquiryForm() {
+  const form = $('enquiry-form');
+  if (!form) return;
+
+  form.addEventListener('submit', handleEnquirySubmit);
+
+  form.addEventListener('focusout', (event) => {
+    if (!(event.target instanceof HTMLElement)) return;
+    if (event.target.matches('input, select, textarea')) validateEnquiryControl(event.target);
+  });
+
+  form.addEventListener('change', (event) => {
+    if (!(event.target instanceof HTMLElement)) return;
+    if (event.target.matches('select, input[type="checkbox"], input[type="radio"]')) validateEnquiryControl(event.target);
+  });
+
+  form.addEventListener('input', (event) => {
+    if (!(event.target instanceof HTMLElement)) return;
+    const target = event.target;
+    if (target.id === 'enq-message') updateEnquiryMessageCount();
+    const key = ENQUIRY_CONTROL_KEYS[target.id]
+      || (target.name === 'enq-areas' ? 'areas' : '')
+      || (target.name === 'enq-contact' ? 'contact' : '');
+    if (key) setEnquiryFieldError(key, '');
+    if (key === 'contact') syncEnquiryContactRequirement();
+  });
+
+  form.addEventListener('reset', () => {
+    window.setTimeout(cleanupEnquiryForm, 0);
+  });
+
+  $('enquiry-success-reset')?.addEventListener('click', () => {
+    form.reset();
+    window.setTimeout(() => {
+      cleanupEnquiryForm();
+      $('enq-name')?.focus();
+    }, 0);
+  });
+
+  updateEnquiryMessageCount();
+  syncEnquiryContactRequirement();
+}
+
 document.addEventListener('click', (event) => {
+  const viewLink = event.target.closest('[data-view-link]');
+  if (viewLink) {
+    event.preventDefault();
+    const view = viewLink.dataset.viewLink;
+    if (view === 'enquiry') {
+      openEnquiry();
+      return;
+    }
+    if (view === 'about') {
+      setActiveView('about', { updateHash: true, scroll: true });
+      return;
+    }
+    setActiveView('shop', { updateHash: true, scroll: true });
+    return;
+  }
+
   const categoryButton = event.target.closest('[data-category-filter]');
   if (categoryButton) {
     event.preventDefault();
+    setActiveView('shop', { updateHash: true, scroll: false });
     filterCategory(categoryButton.dataset.categoryFilter, true);
     return;
   }
@@ -2682,6 +3650,8 @@ renderSidebarNav();
 renderMobilePills();
 renderCategoryRail();
 initCarousel();
+initViewTabs();
+initEnquiryForm();
 updateHeroStats();
 applyFilters();
 renderCart();
