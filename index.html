@@ -535,21 +535,51 @@
 
         <section class="mb-6 grid gap-3 lg:mb-8 lg:grid-cols-[1.05fr_.95fr]" aria-labelledby="visit-title">
           <div class="relative overflow-hidden rounded-2xl bg-[#2a141b] p-6 text-rose-100/75 shadow-lg sm:p-7">
-            <div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-rose-600/20 blur-3xl"></div>
-            <div class="relative">
-              <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-rose-300">Come and see us</p>
-              <h2 id="visit-title" class="mt-2 font-display text-2xl font-extrabold tracking-tight text-white">Inside our Mbarara store</h2>
-              <p class="mt-2 max-w-md text-xs leading-5">Browse the shelves, compare products and get friendly guidance before you buy. Retail and wholesale customers are both welcome.</p>
-              <ul class="mt-5 space-y-3 text-xs leading-5">
-                <li class="flex items-start gap-2.5"><i data-lucide="map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i><span><strong class="font-bold text-white">Garage Street, Mbarara</strong><br>Uganda</span></li>
-                <li class="flex items-start gap-2.5"><i data-lucide="clock" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i><span><strong class="font-bold text-white">Open daily</strong><br>7:30 AM – 9:00 PM</span></li>
-                <li class="flex items-start gap-2.5"><i data-lucide="phone" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i><a href="tel:+256774046547" class="font-bold text-white transition hover:text-rose-300">+256 774 046 547</a></li>
-              </ul>
-              <a href="https://wa.me/256774046547?text=Hello%20Vision%20Cosmetics%2C%20I%27d%20like%20to%20visit%20your%20store." target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3.5 py-2.5 text-[11px] font-bold text-white ring-1 ring-white/15 transition hover:bg-white/20">
-                <i data-lucide="message-circle" class="h-4 w-4 text-rose-300"></i> Message us before you visit
-              </a>
-            </div>
-          </div>
+  <!-- Decorative background blob -->
+  <div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-rose-600/20 blur-3xl"></div>
+  
+  <!-- Responsive Grid Layout: Stacked on mobile, side-by-side on sm+ screens -->
+  <div class="relative grid gap-6 sm:grid-cols-2 items-center">
+    
+    <!-- Left Column: Store Information -->
+    <div>
+      <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-rose-300">Come and see us</p>
+      <h2 id="visit-title" class="mt-2 font-display text-2xl font-extrabold tracking-tight text-white">Inside our Mbarara store</h2>
+      <p class="mt-2 text-xs leading-5">Browse the shelves, compare products and get friendly guidance before you buy. Retail and wholesale customers are both welcome.</p>
+      
+      <ul class="mt-5 space-y-3 text-xs leading-5">
+        <li class="flex items-start gap-2.5">
+          <i data-lucide="map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i>
+          <span><strong class="font-bold text-white">Garage Street, Mbarara</strong><br>Uganda</span>
+        </li>
+        <li class="flex items-start gap-2.5">
+          <i data-lucide="clock" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i>
+          <span><strong class="font-bold text-white">Open daily</strong><br>7:30 AM – 9:00 PM</span>
+        </li>
+        <li class="flex items-start gap-2.5">
+          <i data-lucide="phone" class="mt-0.5 h-4 w-4 shrink-0 text-rose-400"></i>
+          <a href="tel:+256774046547" class="font-bold text-white transition hover:text-rose-300">+256 774 046 547</a>
+        </li>
+      </ul>
+      
+      <a href="https://wa.me/256774046547?text=Hello%20Vision%20Cosmetics%2C%20I%27d%20like%20to%20visit%20your%20store." target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3.5 py-2.5 text-[11px] font-bold text-white ring-1 ring-white/15 transition hover:bg-white/20">
+        <i data-lucide="message-circle" class="h-4 w-4 text-rose-300"></i> Message us before you visit
+      </a>
+    </div>
+
+    <!-- Right Column: Embedded Map -->
+    <div class="h-64 sm:h-full min-h-[260px] w-full overflow-hidden rounded-xl ring-1 ring-white/15">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.594310288943!2d30.654497799999998!3d-0.6071512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19d91bdd0f11f16b%3A0xeb809a5a5697637f!2svision%20cosmetics!5e0!3m2!1sen!2sng!4v1794920533693!5m2!1sen!2sng" 
+        class="h-full w-full border-0 filter invert-[0.9] hue-rotate-[290deg] contrast-[0.9]" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="strict-origin-when-cross-origin">
+      </iframe>
+    </div>
+
+  </div>
+</div>
           <div class="grid grid-cols-2 gap-3">
             <div class="relative overflow-hidden rounded-2xl border border-rose-100 bg-white p-1.5 shadow-card">
               <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-rose-50">
