@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /Badindex.html
+Disallow: /Buggyindex.html
+
+Sitemap: https://visioncosmeticss.com/sitemap.xml
