@@ -242,10 +242,21 @@
   .choice-pill:has(input:checked) { border-color: #fda4af; background: #fff1f2; color: #be123c; }
   .choice-pill .form-check { width: .95rem; height: .95rem; margin-top: 0; }
   .honeypot { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+  textarea.form-control { min-height: 5.25rem; resize: vertical; }
+  .resource-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .resource-card:hover { transform: translateY(-2px); box-shadow: 0 18px 35px -28px rgba(88,28,45,.55); border-color: #fda4af; }
+  .resource-icon { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; flex-shrink: 0; border-radius: .75rem; background: #fff1f2; color: #e11d48; }
+  .ingredient-chip { display: inline-flex; align-items: center; border-radius: 999px; border: 1px solid #fecdd3; background: #fff1f2; padding: .18rem .5rem; font-size: .625rem; font-weight: 800; line-height: 1.3; color: #be123c; }
+  .guide-poster { overflow: hidden; border-radius: 1.25rem; border: 1px solid #fecdd3; background: #fff; }
+  .guide-poster img { display: block; width: 100%; height: auto; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+  .guide-poster:hover img { transform: scale(1.02); }
+  .resource-guide { scroll-margin-top: 5.5rem; }
+  @media (min-width: 768px) { .resource-guide { scroll-margin-top: 1.5rem; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .fade-in, .toast-in, .app-modal [role="dialog"], .toast-progress { animation: none; }
     .product-card, .category-card, .cat-tile, .cat-all, .product-card .product-image img { transition: none; }
+    .resource-card, .guide-poster img { transition: none; }
     .img-shell > img, .img-spinner { transition: none; }
     .img-spinner::after { animation: none; }
     .carousel-track { animation: none; }
@@ -554,10 +565,10 @@
           <div class="relative z-10 grid items-center gap-8 lg:grid-cols-[1.08fr_.92fr] lg:gap-10">
             <div class="min-w-0">
               <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white/80 px-3 py-1.5 text-[9px] font-extrabold uppercase tracking-[0.16em] text-rose-700 backdrop-blur">
-                <span class="h-1.5 w-1.5 rounded-full bg-rose-500"></span> About Vision Cosmetics
+                <span class="h-1.5 w-1.5 rounded-full bg-rose-500"></span> About &amp; skin care resources
               </div>
               <h2 class="font-display text-[2rem] font-extrabold leading-[1.05] tracking-[-0.04em] text-stone-900 sm:text-4xl lg:text-[2.85rem]">Creating a <span class="bg-gradient-to-r from-rose-600 to-fuchsia-600 bg-clip-text text-transparent">beautiful world.</span></h2>
-              <p class="mt-4 max-w-xl text-sm leading-6 text-stone-600 sm:text-[15px]">Vision Cosmetics is a Mbarara-based manufacturer, retailer and wholesale distributor of skin, facial, hair and nail care brands. Find us at Abudhabi Arcade, Bishop Wills/Garage Street, opposite Mbarara Shopping Market. We combine research-led formulations with practical in-store guidance so every customer can make confident choices for their skin.</p>
+              <p class="mt-4 max-w-xl text-sm leading-6 text-stone-600 sm:text-[15px]">Vision Cosmetics is a Mbarara-based manufacturer, retailer and wholesale distributor of skin, facial, hair and nail care brands. Find us at Abudhabi Arcade, Bishop Wills/Garage Street, opposite Mbarara Shopping Market. Explore our skin care resource center to compare brightening ingredients, understand acids and learn which serums can be layered together before you buy.</p>
               <div class="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
                 <button type="button" data-view-link="enquiry" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 px-5 py-3 text-xs font-extrabold text-white shadow-lg shadow-rose-600/25 transition hover:from-rose-700 hover:to-rose-800 active:scale-[0.99]">
                   <i data-lucide="message-square-heart" class="h-4 w-4"></i> Start a skin enquiry
@@ -611,6 +622,153 @@
             </div>
           </div>
         </section>
+
+        <section id="resources" class="resource-guide mb-6 lg:mb-8" aria-labelledby="resources-title">
+          <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-rose-600">Skin care resource center</p>
+              <h2 id="resources-title" class="mt-1 font-display text-2xl font-extrabold tracking-tight text-stone-900 sm:text-3xl">Learn the ingredients before you buy.</h2>
+              <p class="mt-1 max-w-2xl text-xs leading-5 text-stone-500">Three practical guides from our team: match brightening ingredients to your concern, understand what each acid does, and know which serums can be layered safely.</p>
+            </div>
+            <span class="rounded-full border border-rose-100 bg-rose-50/70 px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-rose-700">Free · Always available</span>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <a href="#guide-brightening" class="resource-card group flex h-full flex-col rounded-2xl border border-rose-100/80 bg-white p-4 shadow-card focus-ring">
+              <div class="flex items-start justify-between gap-3">
+                <span class="resource-icon"><i data-lucide="sparkles" class="h-4 w-4"></i></span>
+                <span id="brightening-count" class="text-[9px] font-extrabold uppercase tracking-[0.12em] text-rose-600">8 concerns</span>
+              </div>
+              <p class="mt-3 font-display text-sm font-extrabold text-stone-900">Brightening ingredients guide</p>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">Match dark spots, dullness and uneven tone to the right ingredient.</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-[10px] font-extrabold text-rose-600">Explore guide <i data-lucide="arrow-right" class="h-3 w-3"></i></span>
+            </a>
+            <a href="#guide-acids" class="resource-card group flex h-full flex-col rounded-2xl border border-rose-100/80 bg-white p-4 shadow-card focus-ring">
+              <div class="flex items-start justify-between gap-3">
+                <span class="resource-icon"><i data-lucide="flask-conical" class="h-4 w-4"></i></span>
+                <span id="acid-count" class="text-[9px] font-extrabold uppercase tracking-[0.12em] text-rose-600">5 acids</span>
+              </div>
+              <p class="mt-3 font-display text-sm font-extrabold text-stone-900">Acid cheat sheet</p>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">Know what each acid targets, who it suits and how to use it.</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-[10px] font-extrabold text-rose-600">Explore guide <i data-lucide="arrow-right" class="h-3 w-3"></i></span>
+            </a>
+            <a href="#guide-mixing" class="resource-card group flex h-full flex-col rounded-2xl border border-rose-100/80 bg-white p-4 shadow-card focus-ring">
+              <div class="flex items-start justify-between gap-3">
+                <span class="resource-icon"><i data-lucide="pipette" class="h-4 w-4"></i></span>
+                <span id="mixing-count" class="text-[9px] font-extrabold uppercase tracking-[0.12em] text-rose-600">6 pairings</span>
+              </div>
+              <p class="mt-3 font-display text-sm font-extrabold text-stone-900">Serum mixing guide</p>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">See which serums can be layered together and which to keep apart.</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-[10px] font-extrabold text-rose-600">Explore guide <i data-lucide="arrow-right" class="h-3 w-3"></i></span>
+            </a>
+          </div>
+        </section>
+
+        <article id="guide-brightening" class="resource-guide mb-6 overflow-hidden rounded-[1.5rem] border border-rose-100/80 bg-white p-5 shadow-card sm:p-6 lg:mb-8" aria-labelledby="guide-brightening-title">
+          <div class="grid gap-5 lg:grid-cols-2 lg:items-center">
+            <div class="guide-poster order-2 lg:order-1">
+              <a href="brightenigGuide.jpg" target="_blank" rel="noopener" aria-label="Open the full brightening ingredients guide graphic">
+                <img src="brightenigGuide.jpg" alt="Brightening ingredients guide matching skin concerns to recommended ingredients" width="1219" height="1280" loading="lazy" decoding="async">
+              </a>
+            </div>
+            <div class="order-1 min-w-0 lg:order-2">
+              <p class="text-[9px] font-extrabold uppercase tracking-[0.18em] text-rose-600">Guide 01 · Brightening</p>
+              <h3 id="guide-brightening-title" class="mt-1 font-display text-xl font-extrabold tracking-tight text-stone-900 sm:text-2xl">Find the right brightener for your concern.</h3>
+              <p class="mt-2 text-xs leading-5 text-stone-600">Start with the concern you see in the mirror, not the ingredient name. Each card below pairs a common concern with the ingredient our team would reach for first.</p>
+              <ul class="mt-4 space-y-2 text-[11px] leading-5 text-stone-600">
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Dark spots and post-acne marks need targeted fading ingredients.</li>
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Sensitive skin can still brighten with gentler options.</li>
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Daily sunscreen is essential while using any brightening routine.</li>
+              </ul>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <a href="brightenigGuide.jpg" download="brightening-ingredients-guide.jpg" class="inline-flex items-center gap-1.5 rounded-xl border border-rose-200 bg-white px-3.5 py-2.5 text-[11px] font-bold text-rose-700 transition hover:bg-rose-50">
+                  <i data-lucide="download" class="h-3.5 w-3.5"></i> Download graphic
+                </a>
+                <button type="button" data-view-link="enquiry" class="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 px-3.5 py-2.5 text-[11px] font-extrabold text-white transition hover:from-rose-700 hover:to-rose-800">
+                  <i data-lucide="message-square-heart" class="h-3.5 w-3.5"></i> Get a routine
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="brightening-guide-grid" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"></div>
+        </article>
+
+        <article id="guide-acids" class="resource-guide mb-6 overflow-hidden rounded-[1.5rem] border border-rose-100/80 bg-white p-5 shadow-card sm:p-6 lg:mb-8" aria-labelledby="guide-acids-title">
+          <div class="grid gap-5 lg:grid-cols-2 lg:items-center">
+            <div class="order-1 min-w-0">
+              <p class="text-[9px] font-extrabold uppercase tracking-[0.18em] text-rose-600">Guide 02 · Acids</p>
+              <h3 id="guide-acids-title" class="mt-1 font-display text-xl font-extrabold tracking-tight text-stone-900 sm:text-2xl">Know what each acid is for.</h3>
+              <p class="mt-2 text-xs leading-5 text-stone-600">Acids are not one-size-fits-all. Use this cheat sheet to understand the job of each one, then introduce only one new acid at a time and always follow with sunscreen.</p>
+              <ul class="mt-4 space-y-2 text-[11px] leading-5 text-stone-600">
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Match the acid to your main concern and skin type.</li>
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Start slowly and avoid stacking strong acids.</li>
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Pause if your skin stings, peels or feels tight.</li>
+              </ul>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <a href="acidCheetSheet.jpg" download="acid-cheat-sheet.jpg" class="inline-flex items-center gap-1.5 rounded-xl border border-rose-200 bg-white px-3.5 py-2.5 text-[11px] font-bold text-rose-700 transition hover:bg-rose-50">
+                  <i data-lucide="download" class="h-3.5 w-3.5"></i> Download graphic
+                </a>
+                <a href="https://wa.me/256774046547?text=Hello%20Vision%20Cosmetics%2C%20I%20would%20like%20help%20choosing%20the%20right%20acid%20for%20my%20skin." target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-xl bg-stone-900 px-3.5 py-2.5 text-[11px] font-extrabold text-white transition hover:bg-stone-800">
+                  <i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Ask us
+                </a>
+              </div>
+            </div>
+            <div class="guide-poster order-2">
+              <a href="acidCheetSheet.jpg" target="_blank" rel="noopener" aria-label="Open the full acid cheat sheet graphic">
+                <img src="acidCheetSheet.jpg" alt="Acid cheat sheet showing what each skin acid does and who it suits" width="1170" height="1280" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </div>
+          <div id="acid-guide-grid" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+        </article>
+
+        <article id="guide-mixing" class="resource-guide mb-6 overflow-hidden rounded-[1.5rem] border border-rose-100/80 bg-white p-5 shadow-card sm:p-6 lg:mb-8" aria-labelledby="guide-mixing-title">
+          <div class="grid gap-5 lg:grid-cols-2 lg:items-center">
+            <div class="guide-poster order-2 lg:order-1">
+              <a href="serumMixingGuide.jpg" target="_blank" rel="noopener" aria-label="Open the full serum mixing guide graphic">
+                <img src="serumMixingGuide.jpg" alt="Serum mixing guide showing safe and unsafe serum combinations" width="1254" height="1254" loading="lazy" decoding="async">
+              </a>
+            </div>
+            <div class="order-1 min-w-0 lg:order-2">
+              <p class="text-[9px] font-extrabold uppercase tracking-[0.18em] text-rose-600">Guide 03 · Mixing</p>
+              <h3 id="guide-mixing-title" class="mt-1 font-display text-xl font-extrabold tracking-tight text-stone-900 sm:text-2xl">Layer serums the safe way.</h3>
+              <p class="mt-2 text-xs leading-5 text-stone-600">Not every serum belongs in the same routine. Use this guide to see which pairs work well together and which combinations can irritate or over-exfoliate your skin.</p>
+              <ul class="mt-4 space-y-2 text-[11px] leading-5 text-stone-600">
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500"></i> Apply thinner textures before thicker creams.</li>
+                <li class="flex items-start gap-2"><i data-lucide="check" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500"></i> Alternate strong actives between morning and evening.</li>
+                <li class="flex items-start gap-2"><i data-lucide="triangle-alert" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-rose-500"></i> Never mix two exfoliating acids in one routine.</li>
+              </ul>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <a href="serumMixingGuide.jpg" download="serum-mixing-guide.jpg" class="inline-flex items-center gap-1.5 rounded-xl border border-rose-200 bg-white px-3.5 py-2.5 text-[11px] font-bold text-rose-700 transition hover:bg-rose-50">
+                  <i data-lucide="download" class="h-3.5 w-3.5"></i> Download graphic
+                </a>
+                <button type="button" data-view-link="enquiry" class="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 px-3.5 py-2.5 text-[11px] font-extrabold text-white transition hover:from-rose-700 hover:to-rose-800">
+                  <i data-lucide="message-square-heart" class="h-3.5 w-3.5"></i> Build my routine
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 grid gap-4 lg:grid-cols-2">
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="flex items-center gap-2 font-display text-sm font-extrabold text-emerald-900"><i data-lucide="shield-check" class="h-4 w-4 text-emerald-600"></i> Safe to layer</h4>
+                <span id="serum-safe-count" class="rounded-full bg-white/80 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.12em] text-emerald-700">3 pairs</span>
+              </div>
+              <div id="serum-mix-safe" class="mt-3 space-y-2"></div>
+            </div>
+            <div class="rounded-2xl border border-rose-200 bg-rose-50 p-4">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="flex items-center gap-2 font-display text-sm font-extrabold text-rose-800"><i data-lucide="triangle-alert" class="h-4 w-4 text-rose-600"></i> Keep them apart</h4>
+                <span id="serum-avoid-count" class="rounded-full bg-white/80 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.12em] text-rose-700">3 pairs</span>
+              </div>
+              <div id="serum-mix-avoid" class="mt-3 space-y-2"></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="mb-6 rounded-2xl border border-amber-200/80 bg-amber-50/80 p-4 lg:mb-8" role="note">
+          <p class="flex items-start gap-2 text-[11px] font-semibold leading-5 text-amber-900"><i data-lucide="triangle-alert" class="mt-0.5 h-4 w-4 shrink-0 text-amber-600"></i><span><strong>Please note:</strong> These guides are general product education, not a medical diagnosis. Patch test new products, introduce one active at a time, and speak to a dermatologist if you have persistent irritation, severe acne or a diagnosed skin condition.</span></p>
+        </div>
 
         <section class="mb-6 grid gap-3 lg:mb-8 lg:grid-cols-2" aria-labelledby="purpose-title">
           <h2 id="purpose-title" class="sr-only">Our vision and mission</h2>
@@ -773,8 +931,8 @@
             <div class="rounded-[1.5rem] border border-rose-100/80 bg-white p-5 shadow-card sm:p-6">
               <div class="flex flex-wrap items-start justify-between gap-2 border-b border-stone-100 pb-4">
                 <div>
-                  <h3 class="font-display text-base font-extrabold text-stone-900">Customer enquiry form</h3>
-                  <p class="mt-1 text-[11px] leading-5 text-stone-500">Start with the yes/no skin care questionnaire, then add your details. Fields marked <span class="font-bold text-rose-600">*</span> are required.</p>
+                  <h3 class="font-display text-base font-extrabold text-stone-900">Skin care assessment form</h3>
+                  <p class="mt-1 text-[11px] leading-5 text-stone-500">Complete the five short steps below so we can understand your skin and recommend the right products. Fields marked <span class="font-bold text-rose-600">*</span> are required.</p>
                 </div>
                 <span class="rounded-full bg-emerald-50 px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-emerald-700">Sends via WhatsApp</span>
               </div>
@@ -785,11 +943,11 @@
                 <div class="flex items-start gap-3">
                   <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-600 text-white"><i data-lucide="check" class="h-4 w-4"></i></span>
                   <div class="min-w-0">
-                    <p class="text-sm font-extrabold text-emerald-900">Your enquiry is ready</p>
-                    <p class="mt-1 text-[11px] leading-5 text-emerald-800">WhatsApp should have opened with your details. If it did not, use the link below — then press send in WhatsApp to reach our team.</p>
+                    <p class="text-sm font-extrabold text-emerald-900">Your assessment is ready</p>
+                    <p class="mt-1 text-[11px] leading-5 text-emerald-800">WhatsApp should have opened with your answers. If it did not, use the link below — then press send in WhatsApp to reach our team.</p>
                     <div class="mt-3 flex flex-wrap items-center gap-2">
                       <a id="enquiry-success-link" href="https://wa.me/256774046547" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3 py-2 text-[10px] font-extrabold text-white transition hover:bg-emerald-800"><i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Open WhatsApp</a>
-                      <button type="button" id="enquiry-success-reset" class="rounded-lg border border-emerald-300 px-3 py-2 text-[10px] font-bold text-emerald-800 transition hover:bg-emerald-100">Send another enquiry</button>
+                      <button type="button" id="enquiry-success-reset" class="rounded-lg border border-emerald-300 px-3 py-2 text-[10px] font-bold text-emerald-800 transition hover:bg-emerald-100">Start another assessment</button>
                     </div>
                   </div>
                 </div>
@@ -797,11 +955,80 @@
 
               <form id="enquiry-form" class="mt-5 space-y-6" novalidate>
                 <fieldset>
-                  <legend class="font-display text-sm font-extrabold text-stone-900">1. Skin care questionnaire</legend>
-                  <p class="mt-1 text-[11px] leading-5 text-stone-500">Please tick yes or no for every question. Fields marked <span class="font-bold text-rose-600">*</span> are required.</p>
+                  <legend class="font-display text-sm font-extrabold text-stone-900">1. Skin profile</legend>
+                  <p class="mt-1 text-[11px] leading-5 text-stone-500">Help us understand your skin before we recommend a routine. Fields marked <span class="font-bold text-rose-600">*</span> are required.</p>
+
+                  <div id="enq-skin-type-group" class="mt-4" role="radiogroup" aria-labelledby="enq-skin-type-label" aria-describedby="enq-skin-type-hint enq-skin-type-error" aria-required="true">
+                    <p id="enq-skin-type-label" class="text-xs font-bold leading-5 text-stone-800">How would you describe your skin type? <span class="text-rose-600">*</span></p>
+                    <p id="enq-skin-type-hint" class="mt-1 text-[10px] leading-4 text-stone-400">Choose the closest match if you are unsure.</p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                      <label class="choice-pill"><input type="radio" name="enq-skin-type" value="Oily" class="form-check"> <span>Oily</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-skin-type" value="Dry" class="form-check"> <span>Dry</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-skin-type" value="Combination" class="form-check"> <span>Combination</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-skin-type" value="Normal" class="form-check"> <span>Normal</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-skin-type" value="Sensitive" class="form-check"> <span>Sensitive</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-skin-type" value="Not sure" class="form-check"> <span>Not sure</span></label>
+                    </div>
+                    <p id="enq-skin-type-error" class="field-error" role="alert"></p>
+                  </div>
+
+                  <div id="enq-concerns-group" class="mt-5 border-t border-stone-100 pt-4" role="group" aria-labelledby="enq-concerns-label" aria-describedby="enq-concerns-hint enq-concerns-error" aria-required="true">
+                    <p id="enq-concerns-label" class="text-xs font-bold leading-5 text-stone-800">What are your main skin concerns? <span class="text-rose-600">*</span></p>
+                    <p id="enq-concerns-hint" class="mt-1 text-[10px] leading-4 text-stone-400">Select all that apply — at least one.</p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Acne &amp; breakouts" class="form-check"> <span>Acne &amp; breakouts</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Dark spots / hyperpigmentation" class="form-check"> <span>Dark spots</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Uneven skin tone" class="form-check"> <span>Uneven skin tone</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Dullness" class="form-check"> <span>Dullness</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Dryness / dehydration" class="form-check"> <span>Dryness</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Oiliness / enlarged pores" class="form-check"> <span>Oiliness / pores</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Redness / sensitivity" class="form-check"> <span>Redness / sensitivity</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Fine lines / wrinkles" class="form-check"> <span>Fine lines</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-concerns" value="Texture / blackheads" class="form-check"> <span>Texture / blackheads</span></label>
+                    </div>
+                    <p id="enq-concerns-error" class="field-error" role="alert"></p>
+                  </div>
+
+                  <div id="enq-goals-group" class="mt-5 border-t border-stone-100 pt-4" role="group" aria-labelledby="enq-goals-label" aria-describedby="enq-goals-hint enq-goals-error" aria-required="true">
+                    <p id="enq-goals-label" class="text-xs font-bold leading-5 text-stone-800">What are your top skin goals? <span class="text-rose-600">*</span></p>
+                    <p id="enq-goals-hint" class="mt-1 text-[10px] leading-4 text-stone-400">Select all that apply — at least one.</p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                      <label class="choice-pill"><input type="checkbox" name="enq-goals" value="Clear breakouts" class="form-check"> <span>Clear breakouts</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-goals" value="Fade dark spots" class="form-check"> <span>Fade dark spots</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-goals" value="Even skin tone" class="form-check"> <span>Even skin tone</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-goals" value="Deep hydration" class="form-check"> <span>Deep hydration</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-goals" value="Stronger skin barrier" class="form-check"> <span>Stronger barrier</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-goals" value="Anti-aging &amp; firmness" class="form-check"> <span>Anti-aging &amp; firmness</span></label>
+                      <label class="choice-pill"><input type="checkbox" name="enq-goals" value="Natural glow" class="form-check"> <span>Natural glow</span></label>
+                    </div>
+                    <p id="enq-goals-error" class="field-error" role="alert"></p>
+                  </div>
+
+                  <div id="enq-sunscreen-group" class="mt-5 border-t border-stone-100 pt-4" role="radiogroup" aria-labelledby="enq-sunscreen-label" aria-describedby="enq-sunscreen-error" aria-required="true">
+                    <p id="enq-sunscreen-label" class="text-xs font-bold leading-5 text-stone-800">How often do you wear sunscreen? <span class="text-rose-600">*</span></p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                      <label class="choice-pill"><input type="radio" name="enq-sunscreen" value="Daily" class="form-check"> <span>Daily</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-sunscreen" value="Most days" class="form-check"> <span>Most days</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-sunscreen" value="Sometimes" class="form-check"> <span>Sometimes</span></label>
+                      <label class="choice-pill"><input type="radio" name="enq-sunscreen" value="Rarely or never" class="form-check"> <span>Rarely or never</span></label>
+                    </div>
+                    <p id="enq-sunscreen-error" class="field-error" role="alert"></p>
+                  </div>
+
+                  <div class="mt-5 border-t border-stone-100 pt-4">
+                    <label for="enq-allergies" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Allergies or ingredients to avoid <span class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                    <textarea id="enq-allergies" name="allergies" rows="2" maxlength="150" placeholder="e.g. fragrance, essential oils, or none" class="form-control mt-1.5" aria-describedby="enq-allergies-hint enq-allergies-error"></textarea>
+                    <p id="enq-allergies-hint" class="mt-1 text-[10px] text-stone-400">Tell us about any product reactions or ingredients you prefer to avoid.</p>
+                    <p id="enq-allergies-error" class="field-error" role="alert"></p>
+                  </div>
+                </fieldset>
+
+                <fieldset class="border-t border-stone-100 pt-5">
+                  <legend class="font-display text-sm font-extrabold text-stone-900">2. Routine &amp; history</legend>
+                  <p class="mt-1 text-[11px] leading-5 text-stone-500">A quick snapshot of what you already use and any treatments you have had.</p>
 
                   <div id="enq-uses-products-group" class="mt-4" role="radiogroup" aria-labelledby="enq-uses-products-label" aria-describedby="enq-uses-products-error">
-                    <p id="enq-uses-products-label" class="text-xs font-bold leading-5 text-stone-800">1. Do you use skin care products? <span class="text-rose-600">*</span></p>
+                    <p id="enq-uses-products-label" class="text-xs font-bold leading-5 text-stone-800">Do you use skin care products? <span class="text-rose-600">*</span></p>
                     <div class="mt-2 flex flex-wrap gap-2">
                       <label class="choice-pill"><input type="radio" name="enq-uses-products" value="Yes" class="form-check"> <span>Yes</span></label>
                       <label class="choice-pill"><input type="radio" name="enq-uses-products" value="No" class="form-check"> <span>No</span></label>
@@ -809,8 +1036,38 @@
                     <p id="enq-uses-products-error" class="field-error" role="alert"></p>
                   </div>
 
-                  <div id="enq-statements-group" class="mt-5 border-t border-stone-100 pt-4" role="group" aria-labelledby="enq-statements-label" aria-describedby="enq-statements-error">
-                    <p id="enq-statements-label" class="text-xs font-bold leading-5 text-stone-800">2. Which, if any, of the following statements applies to you? <span class="text-rose-600">*</span></p>
+                  <div id="enq-current-products-wrap" class="mt-4 hidden">
+                    <label for="enq-current-products" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Current products <span class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                    <textarea id="enq-current-products" name="currentProducts" rows="3" maxlength="500" placeholder="e.g. cleanser, toner, serum, moisturizer, sunscreen" class="form-control mt-1.5" aria-describedby="enq-current-products-hint enq-current-products-error" disabled></textarea>
+                    <p id="enq-current-products-hint" class="mt-1 text-[10px] text-stone-400">List the products and brands you use most often, or leave blank if you are not sure.</p>
+                    <p id="enq-current-products-error" class="field-error" role="alert"></p>
+                  </div>
+
+                  <div class="mt-4">
+                    <label for="enq-routine-frequency" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">How often do you follow a routine? <span class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                    <select id="enq-routine-frequency" name="routineFrequency" class="form-control mt-1.5">
+                      <option value="">Select an option</option>
+                      <option>Daily</option>
+                      <option>3–5 times a week</option>
+                      <option>1–2 times a week</option>
+                      <option>Occasionally</option>
+                      <option>Not yet</option>
+                    </select>
+                  </div>
+
+                  <div class="mt-4">
+                    <label for="enq-past-treatments" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Past treatments or procedures <span class="font-semibold normal-case tracking-normal text-stone-400">(optional)</span></label>
+                    <textarea id="enq-past-treatments" name="pastTreatments" rows="2" maxlength="300" placeholder="e.g. facials, chemical peels, laser, prescription creams" class="form-control mt-1.5" aria-describedby="enq-past-treatments-error"></textarea>
+                    <p id="enq-past-treatments-error" class="field-error" role="alert"></p>
+                  </div>
+                </fieldset>
+
+                <fieldset class="border-t border-stone-100 pt-5">
+                  <legend class="font-display text-sm font-extrabold text-stone-900">3. Skin care questionnaire</legend>
+                  <p class="mt-1 text-[11px] leading-5 text-stone-500">Please tick yes or no for every statement. Fields marked <span class="font-bold text-rose-600">*</span> are required.</p>
+
+                  <div id="enq-statements-group" class="mt-4" role="group" aria-labelledby="enq-statements-label" aria-describedby="enq-statements-error">
+                    <p id="enq-statements-label" class="text-xs font-bold leading-5 text-stone-800">Which, if any, of the following statements applies to you? <span class="text-rose-600">*</span></p>
                     <p class="mt-1 text-[10px] leading-4 text-stone-400">Tick yes or no for every statement.</p>
                     <div class="mt-3 space-y-2">
                       <div class="rounded-xl border border-stone-200 bg-white px-3 py-2.5">
@@ -869,7 +1126,7 @@
                       </div>
                       <div class="rounded-xl border border-stone-200 bg-white px-3 py-2.5">
                         <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                          <p id="enq-statement-g-label" class="text-[11px] font-semibold leading-5 text-stone-700"><span class="font-extrabold text-stone-400">G.</span> I suffer from severe redness</p>
+                          <p id="enq-statement-g-label" class="text-[11px] font-semibold leading-5 text-stone-700"><span class="font-extrabold text-stone-400">G.</span> I suffer from redness and sensitivity</p>
                           <div class="flex shrink-0 items-center gap-1.5" role="radiogroup" aria-labelledby="enq-statement-g-label">
                             <label class="choice-pill"><input type="radio" name="enq-statement-g" value="Yes" class="form-check"> <span>Yes</span></label>
                             <label class="choice-pill"><input type="radio" name="enq-statement-g" value="No" class="form-check"> <span>No</span></label>
@@ -914,7 +1171,7 @@
                 </fieldset>
 
                 <fieldset class="border-t border-stone-100 pt-5">
-                  <legend class="font-display text-sm font-extrabold text-stone-900">2. Your details</legend>
+                  <legend class="font-display text-sm font-extrabold text-stone-900">4. Your details</legend>
                   <div class="mt-3 grid gap-4 sm:grid-cols-2">
                     <div>
                       <label for="enq-name" class="block text-[10px] font-extrabold uppercase tracking-[0.14em] text-stone-600">Full name <span class="text-rose-600">*</span></label>
@@ -972,7 +1229,7 @@
                 </fieldset>
 
                 <fieldset class="border-t border-stone-100 pt-5">
-                  <legend class="font-display text-sm font-extrabold text-stone-900">3. Before you send</legend>
+                  <legend class="font-display text-sm font-extrabold text-stone-900">5. Before you send</legend>
                   <div class="mt-3">
                     <label class="flex cursor-pointer items-start gap-2.5 rounded-xl border border-stone-200 bg-stone-50/60 p-3 text-[11px] leading-5 text-stone-600">
                       <input type="checkbox" id="enq-consent" name="consent" class="form-check" aria-describedby="enq-consent-error" required>
@@ -988,7 +1245,7 @@
 
                   <div class="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center">
                     <button type="submit" id="enquiry-submit" class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3.5 text-xs font-extrabold text-white shadow-lg shadow-green-600/20 transition hover:bg-[#1ebd5a] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60">
-                      <i data-lucide="send" class="h-4 w-4"></i> Send enquiry via WhatsApp
+                      <i data-lucide="send" class="h-4 w-4"></i> Send assessment via WhatsApp
                     </button>
                     <button type="reset" id="enquiry-reset" class="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 px-4 py-3 text-xs font-bold text-stone-600 transition hover:border-rose-200 hover:bg-rose-50/60">Clear form</button>
                   </div>
@@ -1083,6 +1340,7 @@
               <li><button data-category-filter="CT+ Clear Therapy" class="text-left transition hover:text-rose-300">CT+ Clear Therapy</button></li>
               <li><button data-category-filter="Body Lotions &amp; Moisturizers" class="text-left transition hover:text-rose-300">Body Lotions</button></li>
               <li><button data-view-link="about" class="text-left transition hover:text-rose-300">About Vision Cosmetics</button></li>
+              <li><a href="#resources" class="text-left transition hover:text-rose-300">Skin care guides</a></li>
               <li><button data-view-link="enquiry" class="text-left transition hover:text-rose-300">Skin enquiry form</button></li>
             </ul>
           </div>
@@ -1235,6 +1493,9 @@
   <span id="network-text">You are currently offline.</span>
 </div>
 
+<script src="brighteningIngredientsGuide.js"></script>
+<script src="acidCheatSheet.js"></script>
+<script src="serumMixingGuide.js"></script>
 <script>
 
 
@@ -3093,6 +3354,87 @@ function updateHeroStats() {
   if (sidebarCategoryCount) sidebarCategoryCount.textContent = CATEGORY_META.length;
 }
 
+function resourceWhatsAppUrl(message) {
+  return `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(message)}`;
+}
+
+function renderResourceCenter() {
+  const brightening = typeof brighteningIngredientsGuide !== 'undefined' ? brighteningIngredientsGuide : [];
+  const acids = typeof acidCheatSheet !== 'undefined' ? acidCheatSheet : [];
+  const mixing = typeof neutriherbsSerumMixingGuide !== 'undefined' ? neutriherbsSerumMixingGuide : [];
+  const safePairs = mixing.filter((entry) => entry.canMix);
+  const avoidPairs = mixing.filter((entry) => !entry.canMix);
+  const uniqueIngredients = new Set(brightening.flatMap((entry) => entry.recommendedIngredients || []));
+
+  const brighteningCount = $('brightening-count');
+  if (brighteningCount) brighteningCount.textContent = `${brightening.length} concern${brightening.length === 1 ? '' : 's'} · ${uniqueIngredients.size} ingredient${uniqueIngredients.size === 1 ? '' : 's'}`;
+  const acidCount = $('acid-count');
+  if (acidCount) acidCount.textContent = `${acids.length} acid${acids.length === 1 ? '' : 's'}`;
+  const mixingCount = $('mixing-count');
+  if (mixingCount) mixingCount.textContent = `${mixing.length} pairing${mixing.length === 1 ? '' : 's'}`;
+  const safeCount = $('serum-safe-count');
+  if (safeCount) safeCount.textContent = `${safePairs.length} pair${safePairs.length === 1 ? '' : 's'}`;
+  const avoidCount = $('serum-avoid-count');
+  if (avoidCount) avoidCount.textContent = `${avoidPairs.length} pair${avoidPairs.length === 1 ? '' : 's'}`;
+
+  const brighteningGrid = $('brightening-guide-grid');
+  if (brighteningGrid) {
+    brighteningGrid.innerHTML = brightening.length ? brightening.map((entry) => {
+      const ingredients = (entry.recommendedIngredients || []).map((ingredient) => `<span class="ingredient-chip">${escapeHtml(ingredient)}</span>`).join('');
+      const message = resourceWhatsAppUrl(`Hello Vision Cosmetics, I have ${entry.concern}. You recommend ${(entry.recommendedIngredients || []).join(' and ')}. Which products should I use?`);
+      return `
+        <article class="resource-card flex h-full flex-col rounded-xl border border-stone-200 bg-white p-4">
+          <div class="flex items-start gap-2.5">
+            <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-rose-50 text-rose-600"><i data-lucide="sparkles" class="h-4 w-4"></i></span>
+            <div class="min-w-0">
+              <h4 class="text-xs font-extrabold leading-5 text-stone-900">${escapeHtml(entry.concern)}</h4>
+              <p class="mt-1 text-[11px] leading-5 text-stone-500">${escapeHtml(entry.description)}</p>
+            </div>
+          </div>
+          <div class="mt-3 flex flex-wrap gap-1.5">${ingredients}</div>
+          <a href="${message}" target="_blank" rel="noopener" class="mt-auto inline-flex items-center gap-1 pt-3 text-[10px] font-extrabold text-rose-600 hover:text-rose-800">Ask about this <i data-lucide="arrow-up-right" class="h-3 w-3"></i></a>
+        </article>
+      `;
+    }).join('') : '<p class="text-xs leading-5 text-stone-500">The brightening guide is being updated. Please ask our team on WhatsApp.</p>';
+  }
+
+  const acidGrid = $('acid-guide-grid');
+  if (acidGrid) {
+    acidGrid.innerHTML = acids.length ? acids.map((entry) => {
+      const benefits = (entry.benefits || []).map((benefit) => `<li>${escapeHtml(benefit)}</li>`).join('');
+      return `
+        <article class="resource-card flex h-full flex-col rounded-xl border border-stone-200 bg-white p-4">
+          <div class="flex items-start justify-between gap-2">
+            <h4 class="min-w-0 text-xs font-extrabold leading-5 text-stone-900">${escapeHtml(entry.name)}</h4>
+            <span class="shrink-0 rounded-full bg-rose-50 px-2 py-1 text-[9px] font-extrabold uppercase tracking-[0.1em] text-rose-700">${escapeHtml(entry.action)}</span>
+          </div>
+          <ul class="mt-3 list-disc space-y-1 pl-4 text-[11px] leading-5 text-stone-600">${benefits}</ul>
+          <p class="mt-auto flex items-start gap-1.5 pt-3 text-[10px] font-semibold leading-4 text-emerald-700"><i data-lucide="lightbulb" class="mt-0.5 h-3 w-3 shrink-0"></i><span>${escapeHtml(entry.tip)}</span></p>
+        </article>
+      `;
+    }).join('') : '<p class="text-xs leading-5 text-stone-500">The acid guide is being updated. Please ask our team on WhatsApp.</p>';
+  }
+
+  const renderMixCards = (entries, isSafe) => {
+    if (!entries.length) return '<p class="text-[11px] leading-5 text-stone-500">No pairings listed yet.</p>';
+    return entries.map((entry) => {
+      const formulas = (entry.bottleFormulas || []).map((formula) => `<li>${escapeHtml(formula)}</li>`).join('');
+      return `
+        <div class="rounded-xl border ${isSafe ? 'border-emerald-200' : 'border-rose-200'} bg-white p-3">
+          <p class="text-[11px] font-extrabold leading-5 text-stone-900">${escapeHtml((entry.serums || []).join(' + '))}</p>
+          <p class="mt-1 flex items-start gap-1.5 text-[10px] font-semibold leading-4 ${isSafe ? 'text-emerald-700' : 'text-rose-700'}"><i data-lucide="${isSafe ? 'check' : 'triangle-alert'}" class="mt-0.5 h-3 w-3 shrink-0"></i><span>${escapeHtml(entry.outcome)}</span></p>
+          <ul class="mt-2 list-disc space-y-1 pl-4 text-[10px] leading-4 text-stone-500">${formulas}</ul>
+        </div>
+      `;
+    }).join('');
+  };
+
+  const safeContainer = $('serum-mix-safe');
+  if (safeContainer) safeContainer.innerHTML = renderMixCards(safePairs, true);
+  const avoidContainer = $('serum-mix-avoid');
+  if (avoidContainer) avoidContainer.innerHTML = renderMixCards(avoidPairs, false);
+}
+
 const CAROUSEL_ENTRIES = [
   { type: 'promo', image: 'images/snset.webp', kicker: 'Original Products', title: 'Original skincare picks', cta: 'Shop the collection', action: 'products', badge: 'from-fuchsia-500 to-violet-600'  },
   { type: 'promo', image: 'images/pr2.webp', kicker: 'Retail & wholesale', title: 'Stock your shop for less', cta: 'Ask about wholesale', action: 'wholesale', badge: 'from-rose-500 to-fuchsia-600' },
@@ -3834,7 +4176,7 @@ function setActiveView(view, options = {}) {
   const nextView = view === 'about' ? 'about' : 'shop';
   currentView = nextView;
   document.title = nextView === 'about'
-    ? 'About Us | Vision Cosmetics Mbarara'
+    ? 'About Us & Skin Care Resources | Vision Cosmetics Mbarara'
     : 'Vision Cosmetics Online | Buy Original Products';
 
   [['shop', $('panel-shop')], ['about', $('panel-about')]].forEach(([name, panel]) => {
@@ -3863,13 +4205,15 @@ function setActiveView(view, options = {}) {
   if (options.scroll) scrollToTop();
 }
 
+const ABOUT_HASH_TARGETS = new Set(['#enquiry', '#resources', '#guide-brightening', '#guide-acids', '#guide-mixing']);
+
 function syncViewFromHash() {
   const hash = location.hash;
-  if (hash === '#about' || hash === '#enquiry') {
+  if (hash === '#about' || ABOUT_HASH_TARGETS.has(hash)) {
     setActiveView('about', { updateHash: false });
-    if (hash === '#enquiry') {
+    if (hash !== '#about') {
       window.requestAnimationFrame(() => {
-        const target = $('enquiry');
+        const target = $(hash.slice(1));
         if (target) target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
       });
     }
@@ -3930,7 +4274,14 @@ const ENQUIRY_STATEMENTS = [
 ];
 
 const ENQUIRY_ERROR_MAP = {
+  skinType: { field: null, group: 'enq-skin-type-group', error: 'enq-skin-type-error' },
+  concerns: { field: null, group: 'enq-concerns-group', error: 'enq-concerns-error' },
+  goals: { field: null, group: 'enq-goals-group', error: 'enq-goals-error' },
+  sunscreen: { field: null, group: 'enq-sunscreen-group', error: 'enq-sunscreen-error' },
+  allergies: { field: 'enq-allergies', error: 'enq-allergies-error' },
   usesProducts: { field: null, group: 'enq-uses-products-group', error: 'enq-uses-products-error' },
+  currentProducts: { field: 'enq-current-products', error: 'enq-current-products-error' },
+  pastTreatments: { field: 'enq-past-treatments', error: 'enq-past-treatments-error' },
   statements: { field: null, group: 'enq-statements-group', error: 'enq-statements-error' },
   otherSpecify: { field: 'enq-other-specify', error: 'enq-other-specify-error' },
   name: { field: 'enq-name', error: 'enq-name-error' },
@@ -3943,12 +4294,25 @@ const ENQUIRY_ERROR_MAP = {
 
 const ENQUIRY_FIELD_KEYS = Object.keys(ENQUIRY_ERROR_MAP);
 const ENQUIRY_CONTROL_KEYS = {
+  'enq-allergies': 'allergies',
+  'enq-current-products': 'currentProducts',
+  'enq-past-treatments': 'pastTreatments',
   'enq-name': 'name',
   'enq-phone': 'phone',
   'enq-email': 'email',
   'enq-location': 'location',
   'enq-other-specify': 'otherSpecify',
   'enq-consent': 'consent',
+};
+
+const ENQUIRY_GROUP_CONTROLS = {
+  'enq-skin-type': 'skinType',
+  'enq-concerns': 'concerns',
+  'enq-goals': 'goals',
+  'enq-sunscreen': 'sunscreen',
+  'enq-uses-products': 'usesProducts',
+  'enq-contact': 'contact',
+  'enq-statements': 'statements',
 };
 
 let enquirySubmitting = false;
@@ -3960,6 +4324,10 @@ function cleanText(value) {
 function getCheckedValue(name) {
   const checked = document.querySelector(`input[name="${name}"]:checked`);
   return checked ? checked.value : '';
+}
+
+function getCheckedValues(name) {
+  return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map((input) => input.value);
 }
 
 function normalizeEnquiryPhone(raw) {
@@ -3978,7 +4346,15 @@ function readEnquiryForm() {
     statements[key] = getCheckedValue(`enq-statement-${key}`);
   });
   return {
+    skinType: getCheckedValue('enq-skin-type'),
+    concerns: getCheckedValues('enq-concerns'),
+    goals: getCheckedValues('enq-goals'),
+    sunscreen: getCheckedValue('enq-sunscreen'),
+    allergies: cleanText(value('enq-allergies')),
     usesProducts: getCheckedValue('enq-uses-products'),
+    currentProducts: cleanText(value('enq-current-products')),
+    routineFrequency: value('enq-routine-frequency'),
+    pastTreatments: cleanText(value('enq-past-treatments')),
     statements,
     otherSpecify: cleanText(value('enq-other-specify')),
     name: cleanText(value('enq-name')),
@@ -3996,8 +4372,36 @@ function readEnquiryForm() {
 function getEnquiryFieldError(key) {
   const data = readEnquiryForm();
 
+  if (key === 'skinType') {
+    if (!data.skinType) return 'Please choose your skin type.';
+    return '';
+  }
+  if (key === 'concerns') {
+    if (!data.concerns.length) return 'Select at least one skin concern.';
+    return '';
+  }
+  if (key === 'goals') {
+    if (!data.goals.length) return 'Select at least one skin goal.';
+    return '';
+  }
+  if (key === 'sunscreen') {
+    if (!data.sunscreen) return 'Please tell us how often you wear sunscreen.';
+    return '';
+  }
+  if (key === 'allergies') {
+    if (data.allergies.length > 150) return 'Please use 150 characters or fewer.';
+    return '';
+  }
   if (key === 'usesProducts') {
     if (!data.usesProducts) return 'Please answer whether you use skin care products.';
+    return '';
+  }
+  if (key === 'currentProducts') {
+    if (data.currentProducts.length > 500) return 'Please use 500 characters or fewer.';
+    return '';
+  }
+  if (key === 'pastTreatments') {
+    if (data.pastTreatments.length > 300) return 'Please use 300 characters or fewer.';
     return '';
   }
   if (key === 'statements') {
@@ -4120,7 +4524,13 @@ function focusEnquiryError(key) {
     return;
   }
   const config = ENQUIRY_ERROR_MAP[key];
-  if (config?.field) $(config.field)?.focus();
+  if (config?.field) {
+    $(config.field)?.focus();
+    return;
+  }
+  if (config?.group) {
+    $(config.group)?.querySelector('input, select, textarea, button')?.focus();
+  }
 }
 
 function syncOtherSpecify() {
@@ -4133,6 +4543,19 @@ function syncOtherSpecify() {
   if (!isYes) {
     input.value = '';
     setEnquiryFieldError('otherSpecify', '');
+  }
+}
+
+function syncCurrentProducts() {
+  const wrap = $('enq-current-products-wrap');
+  const input = $('enq-current-products');
+  const isYes = getCheckedValue('enq-uses-products') === 'Yes';
+  if (wrap) wrap.classList.toggle('hidden', !isYes);
+  if (!input) return;
+  input.disabled = !isYes;
+  if (!isYes) {
+    input.value = '';
+    setEnquiryFieldError('currentProducts', '');
   }
 }
 
@@ -4150,20 +4573,37 @@ function syncEnquiryContactRequirement() {
 }
 
 function buildEnquiryMessage(data) {
+  const formatList = (values) => (values && values.length ? values.join(', ') : 'Not provided');
+  const routineLines = [`Uses skin care products: ${data.usesProducts}`];
+  if (data.usesProducts === 'Yes') routineLines.push(`Current products: ${data.currentProducts || 'Not provided'}`);
+  routineLines.push(
+    `Routine frequency: ${data.routineFrequency || 'Not provided'}`,
+    `Past treatments: ${data.pastTreatments || 'Not provided'}`
+  );
+
   const lines = [
-    '*NEW SKIN QUESTIONNAIRE - VISION COSMETICS MBARARA*',
+    '*NEW SKIN CARE ASSESSMENT - VISION COSMETICS MBARARA*',
     `Submitted: ${new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`,
     '',
-    '*SKIN CARE QUESTIONNAIRE*',
-    `1. Do you use skin care products? ${data.usesProducts}`,
-    '2. Statements that apply:',
+    '*1. SKIN PROFILE*',
+    `Skin type: ${data.skinType}`,
+    `Main concerns: ${formatList(data.concerns)}`,
+    `Skin goals: ${formatList(data.goals)}`,
+    `Sunscreen use: ${data.sunscreen}`,
+    `Allergies / ingredients to avoid: ${data.allergies || 'None provided'}`,
+    '',
+    '*2. ROUTINE & HISTORY*',
+    ...routineLines,
+    '',
+    '*3. SKIN CARE QUESTIONNAIRE*',
+    'Statements that apply:',
     ...ENQUIRY_STATEMENTS.map(({ key, label }) => {
       const answer = data.statements[key];
       if (key === 'j' && answer === 'Yes') return `J. Others; specify: Yes — ${data.otherSpecify}`;
       return `${key.toUpperCase()}. ${label}: ${answer}`;
     }),
     '',
-    '*CUSTOMER DETAILS*',
+    '*4. CUSTOMER DETAILS*',
     `Name: ${data.name}`,
     `Phone: ${data.phone}`,
   ];
@@ -4173,8 +4613,8 @@ function buildEnquiryMessage(data) {
     `Age range: ${data.age || 'Not provided'}`,
     `Preferred contact: ${data.contact}`,
     '',
-    'Consent: Yes - customer agreed to be contacted about this enquiry.',
-    '_This is a product guidance enquiry, not a medical diagnosis._'
+    'Consent: Yes - customer agreed to be contacted about this assessment.',
+    '_This is product guidance, not a medical diagnosis._'
   );
   return lines.join('\n');
 }
@@ -4187,7 +4627,7 @@ function setEnquirySubmitting(isSubmitting) {
   button.setAttribute('aria-busy', String(isSubmitting));
   button.innerHTML = isSubmitting
     ? 'Opening WhatsApp…'
-    : '<i data-lucide="send" class="h-4 w-4"></i> Send enquiry via WhatsApp';
+    : '<i data-lucide="send" class="h-4 w-4"></i> Send assessment via WhatsApp';
   if (window.lucide) lucide.createIcons();
 }
 
@@ -4213,6 +4653,7 @@ function cleanupEnquiryForm() {
   setEnquirySubmitting(false);
   syncEnquiryContactRequirement();
   syncOtherSpecify();
+  syncCurrentProducts();
 }
 
 function handleEnquirySubmit(event) {
@@ -4242,23 +4683,27 @@ function handleEnquirySubmit(event) {
   const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(buildEnquiryMessage(data))}`;
   window.open(url, '_blank', 'noopener');
   showEnquirySuccess(url);
-  showToast('Enquiry ready — complete it in WhatsApp');
+  showToast('Assessment ready — complete it in WhatsApp');
   setEnquirySubmitting(false);
 }
 
 function validateEnquiryControl(target) {
   if (!(target instanceof HTMLElement)) return;
   let key = ENQUIRY_CONTROL_KEYS[target.id];
-  if (target.name === 'enq-uses-products') key = 'usesProducts';
-  if (target.name === 'enq-contact') key = 'contact';
+  if (ENQUIRY_GROUP_CONTROLS[target.name]) key = ENQUIRY_GROUP_CONTROLS[target.name];
   if (/^enq-statement-[a-j]$/.test(target.name)) key = 'statements';
   if (!key) return;
   if (key === 'usesProducts') {
     setEnquiryFieldError('usesProducts', '');
+    syncCurrentProducts();
     return;
   }
   if (key === 'statements') {
     setEnquiryFieldError('statements', '');
+    return;
+  }
+  if (key === 'skinType' || key === 'concerns' || key === 'goals' || key === 'sunscreen') {
+    setEnquiryFieldError(key, '');
     return;
   }
   setEnquiryFieldError(key, getEnquiryFieldError(key));
@@ -4292,8 +4737,7 @@ function initEnquiryForm() {
     if (!(event.target instanceof HTMLElement)) return;
     const target = event.target;
     const key = ENQUIRY_CONTROL_KEYS[target.id]
-      || (target.name === 'enq-uses-products' ? 'usesProducts' : '')
-      || (target.name === 'enq-contact' ? 'contact' : '')
+      || ENQUIRY_GROUP_CONTROLS[target.name]
       || (/^enq-statement-[a-j]$/.test(target.name) ? 'statements' : '');
     if (key) setEnquiryFieldError(key, '');
     if (key === 'contact') syncEnquiryContactRequirement();
@@ -4307,12 +4751,13 @@ function initEnquiryForm() {
     form.reset();
     window.setTimeout(() => {
       cleanupEnquiryForm();
-      document.querySelector('input[name="enq-uses-products"]')?.focus();
+      document.querySelector('input[name="enq-skin-type"]')?.focus();
     }, 0);
   });
 
   syncEnquiryContactRequirement();
   syncOtherSpecify();
+  syncCurrentProducts();
 }
 
 document.addEventListener('click', (event) => {
@@ -4417,6 +4862,7 @@ window.addEventListener('online', () => showNetworkStatus(true));
 renderSidebarNav();
 renderMobileCategoryGrid();
 renderCategoryRail();
+renderResourceCenter();
 initCarousel();
 initViewTabs();
 initEnquiryForm();
